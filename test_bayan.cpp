@@ -7,7 +7,7 @@
 #endif
 #include "bayan_internal.h"
 
-using namespace otus_hw7;
+using namespace otus_hw8;
 
 int main(int argc, char **argv)
 {
@@ -17,21 +17,8 @@ int main(int argc, char **argv)
 
 using namespace std::literals::string_literals;
 
-TEST(test_bulk, test_q)
+TEST(test_bayan, test_file_collect)
 {
-    ICommandQueuePtr_t cmd_q = create_command_queue();
-    EXPECT_TRUE( cmd_q );
-    cmd_q->push(CommandCreator().create_command("Test data"));
-    EXPECT_EQ(cmd_q->size(), 1);
-    ICommandPtr_t cmd = CommandCreator().create_command("Test data 2");
-    cmd_q->push(std::move(cmd));
-    EXPECT_EQ(cmd_q->size(), 2);
-    cmd_q->pop(cmd);
-    EXPECT_EQ(cmd_q->size(), 1);
+    EXPECT_EQ(1, 1);
 }
 
-TEST(test_bulk, test_create_q)
-{
-    ICommandQueuePtr_t cmd_q = create_command_queue();
-    EXPECT_TRUE( cmd_q );
-}

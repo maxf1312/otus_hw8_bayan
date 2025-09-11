@@ -5,9 +5,13 @@
 #include <string>
 #include <memory>
 #include <queue>
+#include <boost/filesystem.hpp>
+//#include <boost/algorithm>
+#include <set>
+#include <unordered_map>
 
 
-namespace otus_hw7{
+namespace otus_hw8{
     using std::istream;
     using std::ostream;
     struct Options
@@ -17,97 +21,43 @@ namespace otus_hw7{
     };
     bool parse_command_line(int argc, const char* argv[], Options& parsed_options);
 
-
-    struct IQueueExecutor;
-    struct ICommandExecutor;
-    struct ICommandContext;
-    struct IInputParser;
-    struct ICommand;
-    struct ICommandQueue;
-    struct IProcessor;
-
-    using IQueueExecutorPtr_t = std::unique_ptr<IQueueExecutor>;
-    using ICommandExecutorPtr_t = std::unique_ptr<ICommandExecutor>;
-    using IInputParserPtr_t = std::unique_ptr<IInputParser>;
-    using ICommandPtr_t = std::unique_ptr<ICommand>;
-    using ICommandQueuePtr_t = std::unique_ptr<ICommandQueue>;
-    using IProcessorPtr_t = std::unique_ptr<IProcessor>;
-    using ICommandContextPtr_t = std::unique_ptr<ICommandContext>;
-
-    //---------------------------------------------------------------------------------------------------
+    namespace bfs = boost::filesystem;
+    using file_sz_t = boost::uintmax_t;
     
-    /// @brief  Парсер для четния, разбора ввода и формирования пакетов команд. 
-    ///         Формирует пакеты, возвращая сразу данные в ICommandQueue 
-    struct IInputParser
+
+    struct FileInfo
     {
-        /// @brief Статус чтения ввода и готовности к выполнению
-        enum class Status : uint8_t
-        {
-            kReading,
-            kReady,
-            kIgnore,
-            kStop
-        };
-        virtual          ~IInputParser() = default;
-        virtual Status   read_next_command(ICommandPtr_t& cmd) = 0;
-        virtual Status   read_next_bulk(ICommandQueue& cmd_queue) = 0;        
+        /// @brief Тип хэш-кода пока что просто CRC32, потом будем деать разные функции хэширования
+        using HashCode = uint32_t;
+
+        /// @brief Тип списка хэшей
+        using Hashes_t = std::vector<HashCode>;
+        
+        file_sz_t file_sz_;
+        file_sz_t block_sz_;
+        std::string file_path_;
+        Hashes_t hash_codes_;
+
+        bool operator < (const FileInfo& rhs) const { return file_path_ < rhs.file_path_; }
+        size_t block_count() const { return hash_codes_.size(); }
+        bool is_hashes_eq(const FileInfo& rhs) const;  
     };
 
-    /// @brief Очередь команд. Формируется парсером, затем выполняется исполнителем под управлением процессора.
-    struct ICommandQueue
-    {
-        time_t   created_at_;
-        virtual  ~ICommandQueue() = default;
+    /**
+         * @brief Набор файлов одинакового размера, которые хранятся в двоичном дереве отсортированными по имени 
+         *        (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах)   
+         * 
+         */
+    using FileInfoSet_t = std::set<FileInfo>;
+    
+    /**
+         * @brief Основная коллекция для хранения информации о файлах. 
+         *        Рассматриваются файлы одинакового размера, которые хранятся в двоичном дереве отсортированными по имени 
+         *        (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах)   
+         * 
+         */
+    using FilesCollection_t = std::unordered_map<file_sz_t, FileInfoSet_t>;
 
-        virtual  void push(ICommandPtr_t cmd) = 0;
-        virtual  bool pop(ICommandPtr_t& cmd) = 0;
-        virtual  void reset() = 0;
-        virtual  size_t size() const = 0;
-    };
 
-    /// @brief Команда, активный объект, паттерн команда
-    struct ICommand
-    {
-        virtual      ~ICommand() = default;
-        virtual void execute(ICommandContext& ctx) = 0;
-    };
-
-    /// @brief Актор, выполняющий команду
-    struct ICommandExecutor
-    {
-        virtual      ~ICommandExecutor() = default;
-        virtual void execute_cmd(ICommand& cmd, ICommandContext& ctx) = 0;
-    };
-
-    /// @brief Актор, выполняющий очередь
-    struct IQueueExecutor
-    {
-        virtual      ~IQueueExecutor() = default;
-        virtual void execute(ICommandQueue& cmd_q, ICommandExecutor& cmd_executor, ICommandContext& ctx) = 0;
-    };
-
-    /// @brief Контекст выполнения команды
-    struct ICommandContext
-    {
-        size_t bulk_size_, cmd_idx_;
-        ostream& os_;
-        time_t cmd_created_at_;
-
-        virtual ~ICommandContext() = default; 
-        ICommandContext(size_t bulk_size, size_t cmd_idx, ostream& os, time_t cmd_created_at) 
-            : bulk_size_(bulk_size), cmd_idx_(cmd_idx), os_(os), cmd_created_at_(cmd_created_at) {}
-    };
-
-    /// @brief Процессор - управляющий обработкой посредник
-    struct IProcessor
-    {
-        virtual ~IProcessor() = default;
-        virtual void process() = 0;
-    };
-
-    /// @brief  Фабрика для процессора, сама по настройкам выбирает какой тип процессора создать
-    /// @param options 
-    /// @return Интерфейс созданного объекта  
-    IProcessorPtr_t create_processor(Options& options);
-} // otus_hw7
+} // otus_hw8
 

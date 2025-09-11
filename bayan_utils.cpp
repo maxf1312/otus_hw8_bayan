@@ -2,7 +2,7 @@
 #include <boost/program_options.hpp>
 #include "bayan.h"
 
-namespace otus_hw7{
+namespace otus_hw8{
     namespace po = boost::program_options;
    
     void show_help(po::options_description const& desc)
