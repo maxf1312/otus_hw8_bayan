@@ -2,6 +2,7 @@
 #include <sstream>
 #include <list>
 #include <tuple>
+#include <fmt/format.h>
 #ifndef __PRETTY_FUNCTION__
 #include "pretty.h"
 #endif
@@ -17,8 +18,78 @@ int main(int argc, char **argv)
 
 using namespace std::literals::string_literals;
 
+void explore_boost_path(bfs::path p)
+{
+    using namespace std;
+    using namespace bfs;
+
+    auto say_what = [](bool b) -> const char * { return b ? "true" : "false"; };
+    cout  <<  p << std::endl;
+    cout  <<  "  make_preferred()-----: " << p.make_preferred() << "\n";
+
+    cout << "\nelements:\n";
+    for (auto element : p)
+        cout << "  " << element << '\n';
+
+    cout  <<  "\nobservers, native format:" << endl;
+    # ifdef BOOST_POSIX_API
+    cout  <<  "  native()-------------: " << p.native() << endl;
+    cout  <<  "  c_str()--------------: " << p.c_str() << endl;
+    # else  // BOOST_WINDOWS_API
+    wcout << L"  native()-------------: " << p.native() << endl;
+    wcout << L"  c_str()--------------: " << p.c_str() << endl;
+    # endif
+    cout  <<  "  string()-------------: " << p.string() << endl;
+    wcout << L"  wstring()------------: " << p.wstring() << endl;
+
+    cout  <<  "\nobservers, generic format:\n";
+    cout  <<  "  generic_string()-----: " << p.generic_string() << endl;
+    wcout << L"  generic_wstring()----: " << p.generic_wstring() << endl;
+
+    cout  <<  "\ndecomposition:\n";
+    cout  <<  "  root_name()----------: " << p.root_name() << '\n';
+    cout  <<  "  root_directory()-----: " << p.root_directory() << '\n';
+    cout  <<  "  root_path()----------: " << p.root_path() << '\n';
+    cout  <<  "  relative_path()------: " << p.relative_path() << '\n';
+    cout  <<  "  parent_path()--------: " << p.parent_path() << '\n';
+    cout  <<  "  filename()-----------: " << p.filename() << '\n';
+    cout  <<  "  stem()---------------: " << p.stem() << '\n';
+    cout  <<  "  extension()----------: " << p.extension() << '\n';
+
+    cout  <<  "\nquery:\n";
+    cout  <<  "  empty()--------------: " << say_what(p.empty()) << '\n';
+    cout  <<  "  is_absolute()--------: " << say_what(p.is_absolute()) << '\n';
+    cout  <<  "  has_root_name()------: " << say_what(p.has_root_name()) << '\n';
+    cout  <<  "  has_root_directory()-: " << say_what(p.has_root_directory()) << '\n';
+    cout  <<  "  has_root_path()------: " << say_what(p.has_root_path()) << '\n';
+    cout  <<  "  has_relative_path()--: " << say_what(p.has_relative_path()) << '\n';
+    cout  <<  "  has_parent_path()----: " << say_what(p.has_parent_path()) << '\n';
+    cout  <<  "  has_filename()-------: " << say_what(p.has_filename()) << '\n';
+    cout  <<  "  has_stem()-----------: " << say_what(p.has_stem()) << '\n';
+    cout  <<  "  has_extension()------: " << say_what(p.has_extension()) << '\n';
+}
+
 TEST(test_bayan, test_file_collect)
 {
-    EXPECT_EQ(1, 1);
+    bfs::path p(__FILE__);
+    auto parent_dir = p.parent_path();
+    auto test_data_dir = parent_dir / "test_data/";
+    EXPECT_EQ(test_data_dir.wstring(), parent_dir.wstring() + L"/test_data/" );
+    FilesCollection_t files;
+    constexpr const size_t Files_count = 4;
+    for(size_t i = 1; i <= Files_count; ++i)
+    {
+        auto file_path = test_data_dir / fmt::format("test{:02d}.txt", i);
+        std::cout << file_path << std::endl;
+        FileInfo file_inf{file_path.string()};
+        files[file_inf.file_sz_].insert(file_inf); 
+    }
+
+    for( const auto& [sz, file_set]: files )
+    {
+        std::cout << "sz: " << sz << std::endl;
+        for( auto const& file_inf: file_set )
+        std::cout << "\tfile_info: " << file_inf.file_path_ << std::endl;
+    }
 }
 

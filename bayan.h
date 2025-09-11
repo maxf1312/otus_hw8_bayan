@@ -27,17 +27,18 @@ namespace otus_hw8{
 
     struct FileInfo
     {
-        /// @brief Тип хэш-кода пока что просто CRC32, потом будем деать разные функции хэширования
+        /// @brief Тип хэш-кода пока что просто CRC32, потом будем делать разные функции хэширования
         using HashCode = uint32_t;
 
         /// @brief Тип списка хэшей
         using Hashes_t = std::vector<HashCode>;
         
-        file_sz_t file_sz_;
-        file_sz_t block_sz_;
+        static file_sz_t block_sz_;
         std::string file_path_;
+        file_sz_t file_sz_;
         Hashes_t hash_codes_;
 
+        FileInfo(const std::string file_path);
         bool operator < (const FileInfo& rhs) const { return file_path_ < rhs.file_path_; }
         size_t block_count() const { return hash_codes_.size(); }
         bool is_hashes_eq(const FileInfo& rhs) const;  

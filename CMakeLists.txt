@@ -33,7 +33,7 @@ target_include_directories(libbayan
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
 
-find_package(Boost REQUIRED COMPONENTS program_options)
+find_package(Boost REQUIRED COMPONENTS program_options filesystem)
 if( Boost_FOUND )
     message(status "** Boost Include: ${Boost_INCLUDE_DIR}")
     message(status "** Boost Libraries: ${Boost_LIBRARY_DIRS}")
@@ -47,10 +47,14 @@ if( Boost_FOUND )
     target_link_libraries(bayan PRIVATE
         ${Boost_LIBRARIES}
     )
+    set(BOOST_LIBS ${Boost_LIBRARIES})
 endif()
+
+find_package(fmt)
 
 target_link_libraries(bayan PRIVATE
     libbayan
+    fmt::fmt
 )
 
 if(WITH_BOOST_TEST)
@@ -93,6 +97,8 @@ if(WITH_GTEST)
     set_target_properties(test_bayan PROPERTIES
         CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
+        COMPILE_DEFINITIONS BOOST_ALL_DYN_LINK
+        INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
     )
 
     target_link_libraries(test_versiong
@@ -100,10 +106,14 @@ if(WITH_GTEST)
         libbayan
     )
 
+
     target_link_libraries(test_bayan
         gtest
         libbayan
+        ${BOOST_LIBS}
+        fmt::fmt
     )
+    
 endif()
 
 if (MSVC)
