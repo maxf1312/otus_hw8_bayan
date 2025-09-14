@@ -24,24 +24,33 @@ namespace otus_hw8{
     namespace bfs = boost::filesystem;
     using file_sz_t = boost::uintmax_t;
     
-
+    /// @brief Основная структура информации о файле. Содержит список хэш-блоков для сранвнения, путь и размер файла. 
     struct FileInfo
     {
         /// @brief Тип хэш-кода пока что просто CRC32, потом будем делать разные функции хэширования
         using HashCode = uint32_t;
 
-        /// @brief Тип списка хэшей
+        /// @brief Тип списка хэшей (TODO сделать классом с методами сравнения и чтения )
         using Hashes_t = std::vector<HashCode>;
         
+        /// @brief размер блока
         static file_sz_t block_sz_;
+        
+        /// @brief полный путь к файлу
         std::string file_path_;
+
+        /// @brief размер файла
         file_sz_t file_sz_;
+
+        /// @brief Список хэш-кодов
         Hashes_t hash_codes_;
 
         FileInfo(const std::string file_path);
         bool operator < (const FileInfo& rhs) const { return file_path_ < rhs.file_path_; }
         size_t block_count() const { return hash_codes_.size(); }
-        bool is_hashes_eq(const FileInfo& rhs) const;  
+        bool is_hashes_eq(const FileInfo& rhs) const;
+        void read_and_hash_blocks(size_t up_to_blocks_count);
+        HashCode hash_data(const uint8_t* data, size_t data_size);
     };
 
     /**
@@ -58,6 +67,37 @@ namespace otus_hw8{
          * 
          */
     using FilesCollection_t = std::unordered_map<file_sz_t, FileInfoSet_t>;
+    using FilesCollectionPtr = std::shared_ptr<FilesCollection_t>;
+
+    class FileFinder
+    {
+    public:
+        FileFinder(std::string const& dir_path, size_t depth, size_t min_file_sz, FilesCollectionPtr dest_files)
+        :   dir_path_(dir_path),
+            depth_(depth),
+            min_file_sz_(min_file_sz),
+            dest_files_(dest_files) 
+        {
+            std::ignore = depth_;
+            std::ignore = min_file_sz_;
+        }
+
+    private:
+        std::string dir_path_;
+        size_t depth_;
+        size_t min_file_sz_;
+        FilesCollectionPtr dest_files_;
+    };
+
+    /// @brief Основной класс для обработки файлов, использует FileFinder для заполнения списка файлов по директории
+    class FileDupSearcher
+    {
+    public:
+        FileDupSearcher() = default;
+
+    private:
+        FilesCollection_t files_;    
+    };
 
 
 } // otus_hw8
