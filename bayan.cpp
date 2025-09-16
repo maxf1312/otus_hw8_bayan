@@ -37,12 +37,19 @@ namespace otus_hw8{
 
         //Get the address of the region
         void* region_addr = region.get_address();
-
+        
         //Get the size of the region
         size_t real_region_size = region.get_size();
-        
         std::ignore = region_addr;
         std::ignore = real_region_size;
+
+        for(uint8_t const* p_begin = reinterpret_cast<uint8_t const*>(region_addr), 
+            *p_end = p_begin + region_size; p_begin != p_end; p_begin += block_sz_
+        )
+        {
+            HashCode h = hash_data(p_begin, block_sz_);
+            hash_codes_.emplace_back( h );
+        }
     }
 
     FileInfo::HashCode FileInfo::hash_data(const uint8_t* data, size_t data_size)
