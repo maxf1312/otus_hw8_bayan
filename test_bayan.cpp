@@ -2,7 +2,8 @@
 #include <sstream>
 #include <list>
 #include <tuple>
-#include <fmt/format.h>
+//#include <fmt/format.h>
+//#include <format>
 #ifndef __PRETTY_FUNCTION__
 #include "pretty.h"
 #endif
@@ -79,7 +80,9 @@ TEST(test_bayan, test_file_collect)
     constexpr const size_t Files_count = 4;
     for(size_t i = 1; i <= Files_count; ++i)
     {
-        auto file_path = test_data_dir / fmt::format("test{:02d}.txt", i);
+        char file_nm[32];
+        snprintf(file_nm, sizeof(file_nm)/sizeof(file_nm[0]), "test%02lu.txt", i);
+        auto file_path = test_data_dir / file_nm;
         std::cout << file_path << std::endl;
         FileInfo file_inf{file_path.string()};
         files[file_inf.file_sz_].insert(file_inf); 
@@ -90,6 +93,20 @@ TEST(test_bayan, test_file_collect)
         std::cout << "sz: " << sz << std::endl;
         for( auto const& file_inf: file_set )
         std::cout << "\tfile_info: " << file_inf.file_path_ << std::endl;
+    }
+
+    
+    auto files2 = std::make_shared<FilesCollection_t>();
+    FileFinder finder(test_data_dir.string(), 0, 1, files2);
+    finder.find_files();
+    EXPECT_EQ(files, *files2) << "Filecollections are not equal!";
+
+    for( const auto& [sz, file_set]: *files2 )
+    {
+        std::cout << "sz2: " << sz << std::endl;
+        for( auto const& file_inf: file_set )
+        std::cout << "\tfile_info2: " << file_inf.file_path_ << std::endl;
+    
     }
 }
 

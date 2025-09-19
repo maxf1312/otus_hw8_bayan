@@ -47,6 +47,7 @@ namespace otus_hw8{
 
         FileInfo(const std::string file_path);
         bool operator < (const FileInfo& rhs) const { return file_path_ < rhs.file_path_; }
+        bool operator == (const FileInfo& rhs) const { return file_path_ == rhs.file_path_; }
         size_t block_count() const { return hash_codes_.size(); }
         bool is_hashes_eq(const FileInfo& rhs) const;
         void read_and_hash_blocks(size_t up_to_blocks_count);
@@ -81,7 +82,7 @@ namespace otus_hw8{
             std::ignore = depth_;
             std::ignore = min_file_sz_;
         }
-
+        void find_files();
     private:
         std::string dir_path_;
         size_t depth_;
@@ -93,10 +94,13 @@ namespace otus_hw8{
     class FileDupSearcher
     {
     public:
-        FileDupSearcher() = default;
-
+        FileDupSearcher();
+        void add_dir(const std::string& dir_path);
+        void find_duplicates();            
     private:
-        FilesCollection_t files_;    
+        void find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set);
+        void find_duplicates_for_file(FileInfoSet_t::iterator file0, FileInfoSet_t::iterator file_end);
+        FilesCollectionPtr files_;    
     };
 
 

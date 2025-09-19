@@ -60,4 +60,51 @@ namespace otus_hw8{
     }
 
 
-};
+    void FileFinder::find_files()
+    {
+        for(bfs::directory_iterator cur_file(dir_path_), end_file; cur_file != end_file; ++cur_file)
+        {
+            
+            FileInfo file_inf{cur_file->path().string()};
+            (*dest_files_)[file_inf.file_sz_].insert(file_inf); 
+        }            
+    }
+    
+    FileDupSearcher::FileDupSearcher() : files_(std::make_shared<FilesCollection_t>()) {}
+    
+    void FileDupSearcher::add_dir(const std::string& dir_path){
+        auto files2 = std::make_shared<FilesCollection_t>();
+        FileFinder finder(dir_path, 0, 1, files_);
+        finder.find_files();
+    }
+
+    void FileDupSearcher::find_duplicates()
+    {
+
+    }
+        
+    void FileDupSearcher::find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set)
+    {
+        assert(file_set.size() > 1);
+        if(file_set.size() <= 1)
+            return;
+        
+        for(auto file_info = file_set.begin(); file_info != file_set.end(); ++file_info)
+        {
+            find_duplicates_for_file(file_info, file_set.end());
+        }
+    }
+
+
+    void FileDupSearcher::find_duplicates_for_file(FileInfoSet_t::iterator file0, FileInfoSet_t::iterator file_end)
+    {
+        auto file_nxt = file0;
+        if( file_nxt++ == file_end ) return;
+        if( !file0->block_count() )
+            (*file0).read_and_hash_blocks( file0->block_count() + 1);
+        for(; file_nxt != file_end ; ++file_nxt)
+        {
+            ;
+        }
+    }
+}

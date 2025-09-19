@@ -50,11 +50,11 @@ if( Boost_FOUND )
     set(BOOST_LIBS ${Boost_LIBRARIES})
 endif()
 
-find_package(fmt)
+#find_package(fmt)
 
 target_link_libraries(bayan PRIVATE
     libbayan
-    fmt::fmt
+    #fmt::fmt
 )
 
 if(WITH_BOOST_TEST)
@@ -103,15 +103,17 @@ if(WITH_GTEST)
 
     target_link_libraries(test_versiong
         gtest
+        pthread
         libbayan
     )
 
 
     target_link_libraries(test_bayan
         gtest
+        pthread
         libbayan
         ${BOOST_LIBS}
-        fmt::fmt
+        #fmt::fmt
     )
     
 endif()
