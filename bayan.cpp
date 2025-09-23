@@ -15,15 +15,22 @@ namespace otus_hw8{
 
     file_sz_t FileInfo::block_sz_ = 5;
 
-    FileInfo::FileInfo(const std::string file_path) 
+    FileInfo::FileInfo(const std::string& file_path) 
         : file_path_{ bfs::absolute(bfs::path(file_path)).string() }, file_sz_{bfs::file_size(file_path_)} 
     {
         ;
     }
     
-    bool FileInfo::is_hashes_eq(const FileInfo& rhs) const
+    bool FileInfo::is_hashes_eq(const FileInfo& rhs, bool blk_cnt_must_be_max/*= false*/) const
     {
-        return block_count() == rhs.block_count() && equal(begin(hash_codes_), end(hash_codes_), begin(rhs.hash_codes_));        
+        size_t block_cnt = std::min(block_count(), rhs.block_count()); 
+        if( !block_cnt )
+            return false;
+        if( blk_cnt_must_be_max && (block_count() < max_block_count() || block_count() != rhs.block_count()))
+            return false;
+        auto p_end = begin(hash_codes_); 
+        advance(p_end, block_cnt); 
+        return equal(begin(hash_codes_), p_end, begin(rhs.hash_codes_));        
     } 
 
     void FileInfo::read_and_hash_blocks(size_t up_to_blocks_count)
@@ -59,14 +66,17 @@ namespace otus_hw8{
         );
     }
 
-
+ 
     void FileFinder::find_files()
     {
         for(bfs::directory_iterator cur_file(dir_path_), end_file; cur_file != end_file; ++cur_file)
         {
             
             FileInfo file_inf{cur_file->path().string()};
-            (*dest_files_)[file_inf.file_sz_].insert(file_inf); 
+            auto& file_set = (*dest_files_)[file_inf.file_sz_]; 
+            // TODO убрать вектор или убрать сортировку по имени на данном этапе
+            auto p_ins = std::lower_bound(file_set.begin(), file_set.end(), file_inf); 
+            file_set.insert(p_ins, file_inf); 
         }            
     }
     
@@ -78,9 +88,25 @@ namespace otus_hw8{
         finder.find_files();
     }
 
+    void FileDupSearcher::remove_single_file_sets()
+    {
+        vector<file_sz_t> keys4del; 
+        keys4del.reserve((files_->size() + 1) / 2);
+        transform(files_->begin(), files_->end(), back_inserter(keys4del), [](const auto& v){ return v.first <= 1 ? v.first : 0; });
+        for_each(keys4del.begin(), keys4del.end(), [&](const auto k){ if( k ) files_->erase(k); });
+                
+    }
+
     void FileDupSearcher::find_duplicates()
     {
-
+        remove_single_file_sets();
+        for( auto& file_set_by_sz : *files_ )
+        {
+            auto [_, file_set] = file_set_by_sz; 
+            if(file_set.size() <= 1)
+                continue;
+            find_duplicates_for_same_file_sizes(file_set);
+        }
     }
         
     void FileDupSearcher::find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set)
@@ -100,11 +126,36 @@ namespace otus_hw8{
     {
         auto file_nxt = file0;
         if( file_nxt++ == file_end ) return;
-        if( !file0->block_count() )
-            (*file0).read_and_hash_blocks( file0->block_count() + 1);
+        
         for(; file_nxt != file_end ; ++file_nxt)
         {
-            ;
+            do
+            {
+                if( file0->block_count() <= file_nxt->block_count() ) 
+                    file0->read_and_hash_blocks(file0->block_count() + 1);
+                
+                if( file0->is_hashes_eq(*file_nxt, true) )
+                {
+                    // файлы полностью равны - отмечаем это в списке 
+                    cout << "check 1: " << file0->file_path_ << " == " << file_nxt->file_path_ << endl;
+                    break;
+                } 
+                
+                if( file0->block_count() > file_nxt->block_count() ) 
+                    file_nxt->read_and_hash_blocks(file_nxt->block_count() + 1);
+                
+                if( file0->is_hashes_eq(*file_nxt, true) )
+                {
+                    // файлы полностью равны - отмечаем это в списке 
+                    cout << "check 2: " << file0->file_path_ << " == " << file_nxt->file_path_ << endl;
+                    break;
+                } 
+            } while( file0->is_hashes_eq(*file_nxt)
+                     && 
+                     ( file0->block_count() < file0->max_block_count() || 
+                       file_nxt->block_count() < file_nxt->max_block_count() 
+                     ) 
+                    );
         }
     }
 }

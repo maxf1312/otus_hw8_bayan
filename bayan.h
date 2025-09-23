@@ -45,11 +45,16 @@ namespace otus_hw8{
         /// @brief Список хэш-кодов
         Hashes_t hash_codes_;
 
-        FileInfo(const std::string file_path);
+        FileInfo(const std::string& file_path);
         bool operator < (const FileInfo& rhs) const { return file_path_ < rhs.file_path_; }
         bool operator == (const FileInfo& rhs) const { return file_path_ == rhs.file_path_; }
         size_t block_count() const { return hash_codes_.size(); }
-        bool is_hashes_eq(const FileInfo& rhs) const;
+        size_t max_block_count() const { return (file_sz_ + 1) / block_sz_; }
+
+        /// @brief Сравнивает массив хэешей this и rhs. Сравнение происходит по размеру минимального из двух массивов
+        /// @param rhs  - правосторонний аргумент сравнения
+        /// @return true, если min(count_blocks, rhs.count_blocks) хэшкодов равны в обеих массиввх
+        bool is_hashes_eq(const FileInfo& rhs, bool blk_cnt_must_be_max = false) const;
         void read_and_hash_blocks(size_t up_to_blocks_count);
         HashCode hash_data(const uint8_t* data, size_t data_size);
     };
@@ -59,7 +64,8 @@ namespace otus_hw8{
          *        (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах)   
          * 
          */
-    using FileInfoSet_t = std::set<FileInfo>;
+    //using FileInfoSet_t = std::set<FileInfo>;
+    using FileInfoSet_t = std::vector<FileInfo>;
     
     /**
          * @brief Основная коллекция для хранения информации о файлах. 
@@ -98,6 +104,7 @@ namespace otus_hw8{
         void add_dir(const std::string& dir_path);
         void find_duplicates();            
     private:
+        void remove_single_file_sets();
         void find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set);
         void find_duplicates_for_file(FileInfoSet_t::iterator file0, FileInfoSet_t::iterator file_end);
         FilesCollectionPtr files_;    

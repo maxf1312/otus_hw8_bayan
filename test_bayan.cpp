@@ -77,7 +77,7 @@ TEST(test_bayan, test_file_collect)
     auto test_data_dir = parent_dir / "test_data/";
     EXPECT_EQ(test_data_dir.wstring(), parent_dir.wstring() + L"/test_data/" );
     FilesCollection_t files;
-    constexpr const size_t Files_count = 4;
+    constexpr const size_t Files_count = 10;
     for(size_t i = 1; i <= Files_count; ++i)
     {
         char file_nm[32];
@@ -85,7 +85,7 @@ TEST(test_bayan, test_file_collect)
         auto file_path = test_data_dir / file_nm;
         std::cout << file_path << std::endl;
         FileInfo file_inf{file_path.string()};
-        files[file_inf.file_sz_].insert(file_inf); 
+        files[file_inf.file_sz_].insert(files[file_inf.file_sz_].end(), file_inf); 
     }
 
     for( const auto& [sz, file_set]: files )
@@ -109,4 +109,20 @@ TEST(test_bayan, test_file_collect)
     
     }
 }
+
+TEST(test_bayan, test_find_dup)
+{
+    bfs::path p(__FILE__);
+    auto parent_dir = p.parent_path();
+    auto test_data_dir = parent_dir / "test_data/";
+    EXPECT_EQ(test_data_dir.wstring(), parent_dir.wstring() + L"/test_data/" );
+   
+    FileDupSearcher searcher;
+    searcher.add_dir(test_data_dir.string());
+    searcher.find_duplicates();
+
+    //    EXPECT_EQ(files, *files2) << "Filecollections are not equal!";
+
+}
+
 
