@@ -13,10 +13,12 @@
 namespace otus_hw8{
     using namespace std;
 
-    file_sz_t FileInfo::block_sz_ = 5;
+    file_sz_t FileInfoSet_t::block_sz_ = 5;
+    file_sz_t FileInfo::block_sz_ = FileInfoSet_t::block_sz();
 
-    FileInfo::FileInfo(const std::string& file_path) 
-        : file_path_{ bfs::absolute(bfs::path(file_path)).string() }, file_sz_{bfs::file_size(file_path_)} 
+    FileInfo::FileInfo(const std::string& file_path, FileInfoSet_t const& owner) 
+        : file_path_{ bfs::absolute(bfs::path(file_path)).string() }, file_sz_{bfs::file_size(file_path_)}, 
+          owner_(owner) 
     {
         ;
     }
@@ -26,7 +28,7 @@ namespace otus_hw8{
         size_t block_cnt = std::min(block_count(), rhs.block_count()); 
         if( !block_cnt )
             return false;
-        if( blk_cnt_must_be_max && (block_count() < max_block_count() || block_count() != rhs.block_count()))
+        if( blk_cnt_must_be_max && (block_count() < owner_.max_block_count() || block_count() != rhs.block_count()))
             return false;
         auto p_end = begin(hash_codes_); 
         advance(p_end, block_cnt); 

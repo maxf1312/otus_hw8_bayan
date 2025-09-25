@@ -24,6 +24,7 @@ namespace otus_hw8{
     namespace bfs = boost::filesystem;
     using file_sz_t = boost::uintmax_t;
     
+    class FileInfoSet_t;
     /// @brief Основная структура информации о файле. Содержит список хэш-блоков для сранвнения, путь и размер файла. 
     struct FileInfo
     {
@@ -40,16 +41,23 @@ namespace otus_hw8{
         std::string file_path_;
 
         /// @brief размер файла
-        file_sz_t file_sz_;
+        //const file_sz_t file_sz_;
 
         /// @brief Список хэш-кодов
         Hashes_t hash_codes_;
 
-        FileInfo(const std::string& file_path);
+        /// @brief владелец - набор файлов одного размера 
+        FileInfoSet_t const& owner_;
+
+        /// @brief Конструктор
+        /// @param file_path путь к файлу 
+        /// @param owner владелец данной инфы о файле
+        FileInfo(const std::string& file_path, FileInfoSet_t const& owner);
+
         bool operator < (const FileInfo& rhs) const { return file_path_ < rhs.file_path_; }
         bool operator == (const FileInfo& rhs) const { return file_path_ == rhs.file_path_; }
         size_t block_count() const { return hash_codes_.size(); }
-        size_t max_block_count() const { return (file_sz_ + 1) / block_sz_; }
+        //size_t max_block_count() const { return (file_sz_ + 1) / block_sz_; }
 
         /// @brief Сравнивает массив хэешей this и rhs. Сравнение происходит по размеру минимального из двух массивов
         /// @param rhs  - правосторонний аргумент сравнения
@@ -60,19 +68,58 @@ namespace otus_hw8{
     };
 
     /**
-         * @brief Набор файлов одинакового размера, которые хранятся в двоичном дереве отсортированными по имени 
-         *        (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах)   
-         * 
-         */
+     * @brief Набор файлов одинакового размера, которые хранятся в двоичном дереве отсортированными по имени 
+     *        (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах)   
+     * 
+     */
     //using FileInfoSet_t = std::set<FileInfo>;
-    using FileInfoSet_t = std::vector<FileInfo>;
+    //using FileInfoSet_t = std::vector<FileInfo>;
+    class FileInfoSet_t 
+    {
+    public:
+        FileInfoSet_t(file_sz_t file_size) 
+        : file_sz_(file_size)
+        { ; }
+        
+        void add_file(const std::string& file_path)
+        {
+            //file_set_
+        //     ..    FileInfo::FileInfo(const std::string& file_path, FileInfoSet_t const& owner) 
+        // : file_path_{ bfs::absolute(bfs::path(file_path)).string() }, file_sz_{bfs::file_size(file_path_)}, 
+        //   owner_(owner) 
+            FileInfo file_info{file_path, *this};
+            
+        }
+
+        size_t max_block_count() const { return (file_sz_ + 1) / block_sz_; }
+
+        /// @brief размер блока
+        static constexpr const file_sz_t block_sz() { return block_sz_; }
+
+        /// @brief размер каждого файла в данном наборе        
+        const file_sz_t file_sz() const { return file_sz_; }
+
+        const size_t size() const { return file_set_.size(); }
+
+    private:
+        using FileInfos_t = std::vector<FileInfo>;
+
+        /// @brief размер блока
+        static file_sz_t block_sz_;
+
+        /// @brief размер каждого файла в данном наборе        
+        file_sz_t file_sz_;
+
+        /// @brief Набор информации о файлах в данном наборе
+        FileInfos_t file_set_;
+    };
     
     /**
-         * @brief Основная коллекция для хранения информации о файлах. 
-         *        Рассматриваются файлы одинакового размера, которые хранятся в двоичном дереве отсортированными по имени 
-         *        (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах)   
-         * 
-         */
+     * @brief Основная коллекция для хранения информации о файлах. 
+     *        Рассматриваются файлы одинакового размера, которые хранятся в двоичном дереве отсортированными по имени 
+     *        (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах)   
+     * 
+     */
     using FilesCollection_t = std::unordered_map<file_sz_t, FileInfoSet_t>;
     using FilesCollectionPtr = std::shared_ptr<FilesCollection_t>;
 
@@ -102,7 +149,7 @@ namespace otus_hw8{
     public:
         FileDupSearcher();
         void add_dir(const std::string& dir_path);
-        void find_duplicates();            
+        void find_duplicates();          
     private:
         void remove_single_file_sets();
         void find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set);
