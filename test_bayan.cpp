@@ -84,8 +84,10 @@ TEST(test_bayan, test_file_collect)
         snprintf(file_nm, sizeof(file_nm)/sizeof(file_nm[0]), "test%02lu.txt", i);
         auto file_path = test_data_dir / file_nm;
         std::cout << file_path << std::endl;
-        FileInfo file_inf{file_path.string()};
-        files[file_inf.file_sz_].insert(files[file_inf.file_sz_].end(), file_inf); 
+        
+        file_sz_t file_sz = bfs::file_size(file_path);
+        auto& file_set = files[file_sz];
+        file_set.add_file(file_path.string()); 
     }
 
     for( const auto& [sz, file_set]: files )

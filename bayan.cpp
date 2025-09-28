@@ -17,7 +17,7 @@ namespace otus_hw8{
     file_sz_t FileInfo::block_sz_ = FileInfoSet_t::block_sz();
 
     FileInfo::FileInfo(const std::string& file_path, FileInfoSet_t const& owner) 
-        : file_path_{ bfs::absolute(bfs::path(file_path)).string() }, file_sz_{bfs::file_size(file_path_)}, 
+        : file_path_{ bfs::absolute(bfs::path(file_path)).string() }, 
           owner_(owner) 
     {
         ;
@@ -44,10 +44,8 @@ namespace otus_hw8{
         file_mapping m_file(file_path_.c_str(), read_only);
         mapped_region region(m_file, read_only, region_off, region_size);
 
-        //Get the address of the region
         void* region_addr = region.get_address();
         
-        //Get the size of the region
         size_t real_region_size = region.get_size();
         std::ignore = region_addr;
         std::ignore = real_region_size;
@@ -68,63 +66,15 @@ namespace otus_hw8{
         );
     }
 
- 
-    void FileFinder::find_files()
+    void  FileInfoSet_t::find_duplicates()
     {
-        for(bfs::directory_iterator cur_file(dir_path_), end_file; cur_file != end_file; ++cur_file)
+        for(auto file_info = file_set_.begin(); file_info != file_set_.end(); ++file_info)
         {
-            
-            FileInfo file_inf{cur_file->path().string()};
-            auto& file_set = (*dest_files_)[file_inf.file_sz_]; 
-            // TODO убрать вектор или убрать сортировку по имени на данном этапе
-            auto p_ins = std::lower_bound(file_set.begin(), file_set.end(), file_inf); 
-            file_set.insert(p_ins, file_inf); 
-        }            
-    }
-    
-    FileDupSearcher::FileDupSearcher() : files_(std::make_shared<FilesCollection_t>()) {}
-    
-    void FileDupSearcher::add_dir(const std::string& dir_path){
-        auto files2 = std::make_shared<FilesCollection_t>();
-        FileFinder finder(dir_path, 0, 1, files_);
-        finder.find_files();
-    }
-
-    void FileDupSearcher::remove_single_file_sets()
-    {
-        vector<file_sz_t> keys4del; 
-        keys4del.reserve((files_->size() + 1) / 2);
-        transform(files_->begin(), files_->end(), back_inserter(keys4del), [](const auto& v){ return v.first <= 1 ? v.first : 0; });
-        for_each(keys4del.begin(), keys4del.end(), [&](const auto k){ if( k ) files_->erase(k); });
-                
-    }
-
-    void FileDupSearcher::find_duplicates()
-    {
-        remove_single_file_sets();
-        for( auto& file_set_by_sz : *files_ )
-        {
-            auto [_, file_set] = file_set_by_sz; 
-            if(file_set.size() <= 1)
-                continue;
-            find_duplicates_for_same_file_sizes(file_set);
-        }
-    }
-        
-    void FileDupSearcher::find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set)
-    {
-        assert(file_set.size() > 1);
-        if(file_set.size() <= 1)
-            return;
-        
-        for(auto file_info = file_set.begin(); file_info != file_set.end(); ++file_info)
-        {
-            find_duplicates_for_file(file_info, file_set.end());
+            find_duplicates_for_file(file_info, file_set_.end());
         }
     }
 
-
-    void FileDupSearcher::find_duplicates_for_file(FileInfoSet_t::iterator file0, FileInfoSet_t::iterator file_end)
+    void FileInfoSet_t::find_duplicates_for_file(FileInfos_t::iterator file0, FileInfos_t::iterator file_end)
     {
         auto file_nxt = file0;
         if( file_nxt++ == file_end ) return;
@@ -154,10 +104,60 @@ namespace otus_hw8{
                 } 
             } while( file0->is_hashes_eq(*file_nxt)
                      && 
-                     ( file0->block_count() < file0->max_block_count() || 
-                       file_nxt->block_count() < file_nxt->max_block_count() 
+                     ( file0->block_count() < max_block_count() || 
+                       file_nxt->block_count() < max_block_count() 
                      ) 
                     );
         }
+    }
+    
+
+    void FileFinder::find_files()
+    {
+        for(bfs::directory_iterator cur_file(dir_path_), end_file; cur_file != end_file; ++cur_file)
+        {
+            file_sz_t file_sz = bfs::file_size(cur_file->path());
+            auto& file_set = (*dest_files_)[file_sz];
+            file_set.add_file(cur_file->path().string());
+        }            
+    }
+    
+    FileDupSearcher::FileDupSearcher() : files_(std::make_shared<FilesCollection_t>()) {}
+    
+    void FileDupSearcher::add_dir(const std::string& dir_path){
+        FileFinder finder(dir_path, 0, 1, files_);
+        finder.find_files();
+    }
+
+    void FileDupSearcher::remove_single_file_sets()
+    {
+        // TODO - refactor it! 
+        vector<file_sz_t> keys4del; 
+        keys4del.reserve((files_->size() + 1) / 2);
+        transform(files_->begin(), files_->end(), back_inserter(keys4del), [](const auto& v){ return v.first <= 1 ? v.first : 0; });
+        for_each(keys4del.begin(), keys4del.end(), [&](const auto k){ if( k ) files_->erase(k); });
+                
+    }
+
+    void FileDupSearcher::find_duplicates()
+    {
+        remove_single_file_sets();
+        for( auto& file_set_by_sz : *files_ )
+        {
+            auto [_, file_set] = file_set_by_sz; 
+            if(file_set.size() <= 1)
+                continue;
+            find_duplicates_for_same_file_sizes(file_set);
+        }
+    }
+        
+    void FileDupSearcher::find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set)
+    {
+        assert(file_set.size() > 1);
+        if(file_set.size() <= 1)
+            return;
+        
+        // TODO pass shared list of path of duplucate files
+        file_set.find_duplicates();
     }
 }

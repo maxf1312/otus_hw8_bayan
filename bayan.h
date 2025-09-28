@@ -77,32 +77,44 @@ namespace otus_hw8{
     class FileInfoSet_t 
     {
     public:
-        FileInfoSet_t(file_sz_t file_size) 
+        using FileInfos_t = std::vector<FileInfo>;
+       
+
+        FileInfoSet_t(file_sz_t file_size = std::numeric_limits<boost::uintmax_t>::max()) 
         : file_sz_(file_size)
         { ; }
         
-        void add_file(const std::string& file_path)
+        void add_file(const std::string& file_path, file_sz_t file_sz = std::numeric_limits<boost::uintmax_t>::max())
         {
-            //file_set_
-        //     ..    FileInfo::FileInfo(const std::string& file_path, FileInfoSet_t const& owner) 
-        // : file_path_{ bfs::absolute(bfs::path(file_path)).string() }, file_sz_{bfs::file_size(file_path_)}, 
-        //   owner_(owner) 
             FileInfo file_info{file_path, *this};
-            
+            if( std::numeric_limits<boost::uintmax_t>::max() == file_sz_ )
+                file_sz_ = file_sz != std::numeric_limits<boost::uintmax_t>::max() ? file_sz : bfs::file_size(file_info.file_path_);
+            file_set_.emplace_back(file_info);            
         }
 
         size_t max_block_count() const { return (file_sz_ + 1) / block_sz_; }
 
         /// @brief размер блока
-        static constexpr const file_sz_t block_sz() { return block_sz_; }
+        static file_sz_t block_sz() { return block_sz_; }
 
         /// @brief размер каждого файла в данном наборе        
-        const file_sz_t file_sz() const { return file_sz_; }
+        file_sz_t file_sz() const { return file_sz_; }
 
-        const size_t size() const { return file_set_.size(); }
+        size_t size() const { return file_set_.size(); }
+
+        void  find_duplicates();
+
+        FileInfos_t::const_iterator cbegin() const { return file_set_.cbegin(); }
+        FileInfos_t::const_iterator cend() const  { return file_set_.cend(); }
+
+        FileInfos_t::const_iterator begin() const { return file_set_.begin(); }
+        FileInfos_t::const_iterator end() const  { return file_set_.end(); }
+
+        bool operator == (const FileInfoSet_t& rhs) const { return  file_sz_ == rhs.file_sz_ && file_set_ == rhs.file_set_; }
 
     private:
-        using FileInfos_t = std::vector<FileInfo>;
+        
+        void find_duplicates_for_file(FileInfos_t::iterator file0, FileInfos_t::iterator file_end);
 
         /// @brief размер блока
         static file_sz_t block_sz_;
@@ -153,7 +165,6 @@ namespace otus_hw8{
     private:
         void remove_single_file_sets();
         void find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set);
-        void find_duplicates_for_file(FileInfoSet_t::iterator file0, FileInfoSet_t::iterator file_end);
         FilesCollectionPtr files_;    
     };
 
