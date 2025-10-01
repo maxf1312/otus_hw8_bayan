@@ -47,17 +47,21 @@ namespace otus_hw8{
         Hashes_t hash_codes_;
 
         /// @brief владелец - набор файлов одного размера 
-        FileInfoSet_t const& owner_;
+        FileInfoSet_t& owner_;
+
+        using DupFileSet_t = std::set<FileInfo*>;
+        using DupFileInfo_t = std::shared_ptr<DupFileSet_t>;
+        DupFileInfo_t duplicates_; 
 
         /// @brief Конструктор
         /// @param file_path путь к файлу 
         /// @param owner владелец данной инфы о файле
-        FileInfo(const std::string& file_path, FileInfoSet_t const& owner);
+        FileInfo(const std::string& file_path, FileInfoSet_t& owner);
 
         bool operator < (const FileInfo& rhs) const { return file_path_ < rhs.file_path_; }
         bool operator == (const FileInfo& rhs) const { return file_path_ == rhs.file_path_; }
         size_t block_count() const { return hash_codes_.size(); }
-        //size_t max_block_count() const { return (file_sz_ + 1) / block_sz_; }
+        bool   check_duplicate(FileInfo& rhs);
 
         /// @brief Сравнивает массив хэешей this и rhs. Сравнение происходит по размеру минимального из двух массивов
         /// @param rhs  - правосторонний аргумент сравнения
@@ -78,7 +82,7 @@ namespace otus_hw8{
     {
     public:
         using FileInfos_t = std::vector<FileInfo>;
-       
+        using DupFilePtrSet_t = std::set<FileInfo::DupFileSet_t*>;
 
         FileInfoSet_t(file_sz_t file_size = std::numeric_limits<boost::uintmax_t>::max()) 
         : file_sz_(file_size)
@@ -112,8 +116,14 @@ namespace otus_hw8{
 
         bool operator == (const FileInfoSet_t& rhs) const { return  file_sz_ == rhs.file_sz_ && file_set_ == rhs.file_set_; }
 
+        void add_dup_fileset(  FileInfo::DupFileSet_t* dup_files )
+        {
+            dup_filesets_.insert(dup_files);
+        }
+
+        const DupFilePtrSet_t& dup_fileptr_set() const { return dup_filesets_; }
+
     private:
-        
         void find_duplicates_for_file(FileInfos_t::iterator file0, FileInfos_t::iterator file_end);
 
         /// @brief размер блока
@@ -124,6 +134,8 @@ namespace otus_hw8{
 
         /// @brief Набор информации о файлах в данном наборе
         FileInfos_t file_set_;
+
+        DupFilePtrSet_t dup_filesets_;
     };
     
     /**
@@ -161,7 +173,9 @@ namespace otus_hw8{
     public:
         FileDupSearcher();
         void add_dir(const std::string& dir_path);
-        void find_duplicates();          
+        void find_duplicates();
+        FilesCollectionPtr const& files() const { return files_; }          
+
     private:
         void remove_single_file_sets();
         void find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set);

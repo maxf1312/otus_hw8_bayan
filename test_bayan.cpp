@@ -123,6 +123,18 @@ TEST(test_bayan, test_find_dup)
     searcher.add_dir(test_data_dir.string());
     searcher.find_duplicates();
 
+    for( const auto& [_, file_set]: *searcher.files() )
+    {
+        for( const auto file_ptr_set: file_set.dup_fileptr_set() )
+        {
+            for( const auto file_info_ptr : *file_ptr_set )
+                std::cout << file_info_ptr->file_path_ << std::endl;
+        }
+    }
+    //const DupFilePtrSet_t& dup_fileptr_set() const { return dup_filesets_; }
+
+
+
     //    EXPECT_EQ(files, *files2) << "Filecollections are not equal!";
 
 }

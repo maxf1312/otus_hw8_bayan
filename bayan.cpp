@@ -16,7 +16,7 @@ namespace otus_hw8{
     file_sz_t FileInfoSet_t::block_sz_ = 5;
     file_sz_t FileInfo::block_sz_ = FileInfoSet_t::block_sz();
 
-    FileInfo::FileInfo(const std::string& file_path, FileInfoSet_t const& owner) 
+    FileInfo::FileInfo(const std::string& file_path, FileInfoSet_t& owner) 
         : file_path_{ bfs::absolute(bfs::path(file_path)).string() }, 
           owner_(owner) 
     {
@@ -66,6 +66,31 @@ namespace otus_hw8{
         );
     }
 
+    bool   FileInfo::check_duplicate(FileInfo& rhs)
+    {
+        if( this == &rhs )
+            return true;
+
+        bool is_dup = is_hashes_eq(rhs, true);
+        if( !is_dup )
+            return is_dup;
+
+        if( !duplicates_ )
+        {
+            duplicates_ = std::make_shared<DupFileSet_t>();
+            owner_.add_dup_fileset(duplicates_.get());
+        }
+
+        if( !rhs.duplicates_ )
+            rhs.duplicates_ = duplicates_;
+        
+        duplicates_->insert(this);        
+        duplicates_->insert(&rhs);        
+
+        return is_dup;
+    }
+
+
     void  FileInfoSet_t::find_duplicates()
     {
         for(auto file_info = file_set_.begin(); file_info != file_set_.end(); ++file_info)
@@ -86,7 +111,7 @@ namespace otus_hw8{
                 if( file0->block_count() <= file_nxt->block_count() ) 
                     file0->read_and_hash_blocks(file0->block_count() + 1);
                 
-                if( file0->is_hashes_eq(*file_nxt, true) )
+                if( file0->check_duplicate(*file_nxt) )
                 {
                     // файлы полностью равны - отмечаем это в списке 
                     cout << "check 1: " << file0->file_path_ << " == " << file_nxt->file_path_ << endl;
@@ -96,7 +121,7 @@ namespace otus_hw8{
                 if( file0->block_count() > file_nxt->block_count() ) 
                     file_nxt->read_and_hash_blocks(file_nxt->block_count() + 1);
                 
-                if( file0->is_hashes_eq(*file_nxt, true) )
+                if( file0->check_duplicate(*file_nxt) )
                 {
                     // файлы полностью равны - отмечаем это в списке 
                     cout << "check 2: " << file0->file_path_ << " == " << file_nxt->file_path_ << endl;
