@@ -75,6 +75,7 @@ namespace otus_hw8{
         if( !is_dup )
             return is_dup;
 
+        // файлы полностью равны - отмечаем это в наборе выбранных указателей на FileInfo 
         if( !duplicates_ )
         {
             duplicates_ = std::make_shared<DupFileSet_t>();
@@ -112,21 +113,13 @@ namespace otus_hw8{
                     file0->read_and_hash_blocks(file0->block_count() + 1);
                 
                 if( file0->check_duplicate(*file_nxt) )
-                {
-                    // файлы полностью равны - отмечаем это в списке 
-                    cout << "check 1: " << file0->file_path_ << " == " << file_nxt->file_path_ << endl;
                     break;
-                } 
                 
                 if( file0->block_count() > file_nxt->block_count() ) 
                     file_nxt->read_and_hash_blocks(file_nxt->block_count() + 1);
                 
                 if( file0->check_duplicate(*file_nxt) )
-                {
-                    // файлы полностью равны - отмечаем это в списке 
-                    cout << "check 2: " << file0->file_path_ << " == " << file_nxt->file_path_ << endl;
                     break;
-                } 
             } while( file0->is_hashes_eq(*file_nxt)
                      && 
                      ( file0->block_count() < max_block_count() || 
@@ -169,7 +162,7 @@ namespace otus_hw8{
         remove_single_file_sets();
         for( auto& file_set_by_sz : *files_ )
         {
-            auto [_, file_set] = file_set_by_sz; 
+            auto& [_, file_set] = file_set_by_sz; 
             if(file_set.size() <= 1)
                 continue;
             find_duplicates_for_same_file_sizes(file_set);

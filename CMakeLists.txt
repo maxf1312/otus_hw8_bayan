@@ -109,6 +109,7 @@ if(WITH_GTEST)
 
 
     target_link_libraries(test_bayan
+        $<$<CONFIG:Debug>:asan>
         gtest
         pthread
         libbayan
@@ -154,7 +155,7 @@ else ()
         target_compile_options(test_versiong PRIVATE
             -Wall -Wextra -pedantic -Werror
         )
-        target_compile_options(test_bayan PRIVATE
+        target_compile_options(test_bayan PRIVATE $<$<CONFIG:Debug>:-fsanitize=address -fsanitize=leak>
             -Wall -Wextra -pedantic -Werror
         )
     endif()

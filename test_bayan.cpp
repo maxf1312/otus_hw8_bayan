@@ -129,10 +129,9 @@ TEST(test_bayan, test_find_dup)
         {
             for( const auto file_info_ptr : *file_ptr_set )
                 std::cout << file_info_ptr->file_path_ << std::endl;
+            std::cout << std::endl;
         }
     }
-    //const DupFilePtrSet_t& dup_fileptr_set() const { return dup_filesets_; }
-
 
 
     //    EXPECT_EQ(files, *files2) << "Filecollections are not equal!";
