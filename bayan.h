@@ -24,24 +24,28 @@ namespace otus_hw8{
     namespace bfs = boost::filesystem;
     using file_sz_t = boost::uintmax_t;
     
+    struct FileInfo;
     class FileInfoSet_t;
+    using DupFileSet_t = std::set<FileInfo*>;
+    using DupFilePtrSet_t = std::set<DupFileSet_t*>;
+
     /// @brief Основная структура информации о файле. Содержит список хэш-блоков для сранвнения, путь и размер файла. 
     struct FileInfo
     {
         /// @brief Тип хэш-кода пока что просто CRC32, потом будем делать разные функции хэширования
-        using HashCode = uint32_t;
+        using HashCode = std::vector<uint8_t>;
 
-        /// @brief Тип списка хэшей (TODO сделать классом с методами сравнения и чтения )
-        using Hashes_t = std::vector<HashCode>;
+        /// @brief Тип списка хэшей - разделены по размеру блока
+        using Hashes_t = std::vector<uint8_t>;
         
         /// @brief размер блока
         static file_sz_t block_sz_;
+
+        /// @brief размер хэша
+        static size_t hashcode_sz_;
         
         /// @brief полный путь к файлу
         std::string file_path_;
-
-        /// @brief размер файла
-        //const file_sz_t file_sz_;
 
         /// @brief Список хэш-кодов
         Hashes_t hash_codes_;
@@ -49,7 +53,6 @@ namespace otus_hw8{
         /// @brief владелец - набор файлов одного размера 
         FileInfoSet_t& owner_;
 
-        using DupFileSet_t = std::set<FileInfo*>;
         using DupFileInfo_t = std::shared_ptr<DupFileSet_t>;
         DupFileInfo_t duplicates_; 
 
@@ -60,8 +63,8 @@ namespace otus_hw8{
 
         bool operator < (const FileInfo& rhs) const { return file_path_ < rhs.file_path_; }
         bool operator == (const FileInfo& rhs) const { return file_path_ == rhs.file_path_; }
-        size_t block_count() const { return hash_codes_.size(); }
-        bool   check_duplicate(FileInfo& rhs);
+        size_t block_count() const { return hash_codes_.size() / hashcode_sz_; }
+        bool   check_duplicate(FileInfo& rhs, DupFilePtrSet_t& dup_fileptr_set);
 
         /// @brief Сравнивает массив хэешей this и rhs. Сравнение происходит по размеру минимального из двух массивов
         /// @param rhs  - правосторонний аргумент сравнения
@@ -76,13 +79,10 @@ namespace otus_hw8{
      *        (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах)   
      * 
      */
-    //using FileInfoSet_t = std::set<FileInfo>;
-    //using FileInfoSet_t = std::vector<FileInfo>;
     class FileInfoSet_t 
     {
     public:
         using FileInfos_t = std::vector<FileInfo>;
-        using DupFilePtrSet_t = std::set<FileInfo::DupFileSet_t*>;
 
         FileInfoSet_t(file_sz_t file_size = std::numeric_limits<boost::uintmax_t>::max()) 
         : file_sz_(file_size)
@@ -106,7 +106,7 @@ namespace otus_hw8{
 
         size_t size() const { return file_set_.size(); }
 
-        void  find_duplicates();
+        void  find_duplicates(DupFilePtrSet_t& dup_fileptr_set);
 
         FileInfos_t::const_iterator cbegin() const { return file_set_.cbegin(); }
         FileInfos_t::const_iterator cend() const  { return file_set_.cend(); }
@@ -116,15 +116,8 @@ namespace otus_hw8{
 
         bool operator == (const FileInfoSet_t& rhs) const { return  file_sz_ == rhs.file_sz_ && file_set_ == rhs.file_set_; }
 
-        void add_dup_fileset(  FileInfo::DupFileSet_t* dup_files )
-        {
-            dup_filesets_.insert(dup_files);
-        }
-
-        const DupFilePtrSet_t& dup_fileptr_set() const { return dup_filesets_; }
-
     private:
-        void find_duplicates_for_file(FileInfos_t::iterator file0, FileInfos_t::iterator file_end);
+        void find_duplicates_for_file(FileInfos_t::iterator file0, FileInfos_t::iterator file_end, DupFilePtrSet_t& dup_fileptr_set);
 
         /// @brief размер блока
         static file_sz_t block_sz_;
@@ -134,8 +127,6 @@ namespace otus_hw8{
 
         /// @brief Набор информации о файлах в данном наборе
         FileInfos_t file_set_;
-
-        DupFilePtrSet_t dup_filesets_;
     };
     
     /**
@@ -174,12 +165,13 @@ namespace otus_hw8{
         FileDupSearcher();
         void add_dir(const std::string& dir_path);
         void find_duplicates();
-        FilesCollectionPtr const& files() const { return files_; }          
-
+        FilesCollectionPtr const& files() const { return files_; }
+        DupFilePtrSet_t const&    dup_filepointers() const { return dup_filepointers_; }
     private:
         void remove_single_file_sets();
-        void find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set);
-        FilesCollectionPtr files_;    
+        void find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set, DupFilePtrSet_t& dup_fileptr_set);
+        FilesCollectionPtr files_;
+        DupFilePtrSet_t    dup_filepointers_;    
     };
 
 

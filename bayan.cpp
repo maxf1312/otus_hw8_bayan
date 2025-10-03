@@ -15,6 +15,8 @@ namespace otus_hw8{
 
     file_sz_t FileInfoSet_t::block_sz_ = 5;
     file_sz_t FileInfo::block_sz_ = FileInfoSet_t::block_sz();
+    file_sz_t FileInfo::hashcode_sz_ = sizeof(uint32_t);
+    
 
     FileInfo::FileInfo(const std::string& file_path, FileInfoSet_t& owner) 
         : file_path_{ bfs::absolute(bfs::path(file_path)).string() }, 
@@ -31,7 +33,7 @@ namespace otus_hw8{
         if( blk_cnt_must_be_max && (block_count() < owner_.max_block_count() || block_count() != rhs.block_count()))
             return false;
         auto p_end = begin(hash_codes_); 
-        advance(p_end, block_cnt); 
+        advance(p_end, block_cnt * hashcode_sz_); 
         return equal(begin(hash_codes_), p_end, begin(rhs.hash_codes_));        
     } 
 
@@ -55,18 +57,22 @@ namespace otus_hw8{
         )
         {
             HashCode h = hash_data(p_begin, block_sz_);
-            hash_codes_.emplace_back( h );
+            copy(h.begin(), h.end(), back_inserter(hash_codes_));
         }
     }
 
     FileInfo::HashCode FileInfo::hash_data(const uint8_t* data, size_t data_size)
     {
-        return std::accumulate(data, data + data_size, FileInfo::HashCode{},
-                [](const auto& new_v, const auto& sum_v) -> HashCode { return (sum_v + new_v) << 1; }
+        uint32_t hc = std::accumulate(data, data + data_size, uint32_t{},
+                [](const auto& new_v, const auto& sum_v) -> uint32_t { return (sum_v + new_v) << 1; }
         );
+        HashCode rv{};
+        for(int n = 4; n > 0; --n, hc >>= 8)
+            rv.push_back(hc & 0xFF);
+        return rv;
     }
 
-    bool   FileInfo::check_duplicate(FileInfo& rhs)
+    bool   FileInfo::check_duplicate(FileInfo& rhs, DupFilePtrSet_t& dup_fileptr_set)
     {
         if( this == &rhs )
             return true;
@@ -79,7 +85,7 @@ namespace otus_hw8{
         if( !duplicates_ )
         {
             duplicates_ = std::make_shared<DupFileSet_t>();
-            owner_.add_dup_fileset(duplicates_.get());
+            dup_fileptr_set.insert(duplicates_.get());
         }
 
         if( !rhs.duplicates_ )
@@ -92,15 +98,15 @@ namespace otus_hw8{
     }
 
 
-    void  FileInfoSet_t::find_duplicates()
+    void  FileInfoSet_t::find_duplicates(DupFilePtrSet_t& dup_fileptr_set)
     {
         for(auto file_info = file_set_.begin(); file_info != file_set_.end(); ++file_info)
         {
-            find_duplicates_for_file(file_info, file_set_.end());
+            find_duplicates_for_file(file_info, file_set_.end(), dup_fileptr_set);
         }
     }
 
-    void FileInfoSet_t::find_duplicates_for_file(FileInfos_t::iterator file0, FileInfos_t::iterator file_end)
+    void FileInfoSet_t::find_duplicates_for_file(FileInfos_t::iterator file0, FileInfos_t::iterator file_end, DupFilePtrSet_t& dup_fileptr_set)
     {
         auto file_nxt = file0;
         if( file_nxt++ == file_end ) return;
@@ -112,13 +118,13 @@ namespace otus_hw8{
                 if( file0->block_count() <= file_nxt->block_count() ) 
                     file0->read_and_hash_blocks(file0->block_count() + 1);
                 
-                if( file0->check_duplicate(*file_nxt) )
+                if( file0->check_duplicate(*file_nxt, dup_fileptr_set) )
                     break;
                 
                 if( file0->block_count() > file_nxt->block_count() ) 
                     file_nxt->read_and_hash_blocks(file_nxt->block_count() + 1);
                 
-                if( file0->check_duplicate(*file_nxt) )
+                if( file0->check_duplicate(*file_nxt, dup_fileptr_set) )
                     break;
             } while( file0->is_hashes_eq(*file_nxt)
                      && 
@@ -149,12 +155,10 @@ namespace otus_hw8{
 
     void FileDupSearcher::remove_single_file_sets()
     {
-        // TODO - refactor it! 
         vector<file_sz_t> keys4del; 
         keys4del.reserve((files_->size() + 1) / 2);
-        transform(files_->begin(), files_->end(), back_inserter(keys4del), [](const auto& v){ return v.first <= 1 ? v.first : 0; });
+        transform(files_->begin(), files_->end(), back_inserter(keys4del), [](const auto& v){ return v.second.size() <= 1 ? v.first : 0; });
         for_each(keys4del.begin(), keys4del.end(), [&](const auto k){ if( k ) files_->erase(k); });
-                
     }
 
     void FileDupSearcher::find_duplicates()
@@ -165,17 +169,16 @@ namespace otus_hw8{
             auto& [_, file_set] = file_set_by_sz; 
             if(file_set.size() <= 1)
                 continue;
-            find_duplicates_for_same_file_sizes(file_set);
+            find_duplicates_for_same_file_sizes(file_set, dup_filepointers_);
         }
     }
         
-    void FileDupSearcher::find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set)
+    void FileDupSearcher::find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set, DupFilePtrSet_t& dup_fileptr_set)
     {
         assert(file_set.size() > 1);
         if(file_set.size() <= 1)
             return;
         
-        // TODO pass shared list of path of duplucate files
-        file_set.find_duplicates();
+        file_set.find_duplicates(dup_fileptr_set);
     }
 }

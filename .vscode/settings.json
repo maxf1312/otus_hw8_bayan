@@ -67,6 +67,7 @@
         "bitset": "cpp",
         "complex": "cpp",
         "typeindex": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "shared_mutex": "cpp"
     }
 }
