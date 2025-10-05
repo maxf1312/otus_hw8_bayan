@@ -12,7 +12,7 @@ configure_file(version.h.in version.h)
 
 add_definitions(-D USE_PRETTY)
 
-add_executable(bayan main.cpp bayan.cpp bayan_utils.cpp)
+add_executable(bayan main.cpp bayan.cpp bayan_utils.cpp hashalgo.cpp)
 add_library(libbayan vers.cpp)
 
 set_target_properties(bayan PROPERTIES
