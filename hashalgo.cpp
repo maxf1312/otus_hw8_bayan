@@ -4,6 +4,7 @@
 #include <memory>
 #include <algorithm>
 #include <numeric>
+#include <map>
 #include <boost/functional/factory.hpp>
 
 #include "hashalgo.hpp"
@@ -14,7 +15,7 @@ namespace otus_hw8
     struct IHashFunction
     {
         virtual ~IHashFunction() = default;
-        virtual HashCode make_hash(const uint8_t *data, size_t data_size) const = 0;
+        virtual HashCode make_hash(const uint8_t *data, size_t data_size) const { std::ignore = data; std::ignore = data_size; return {0}; };
         HashCode operator()(const uint8_t *data, size_t data_size) const { return make_hash(data, data_size); }
     };
 
@@ -35,13 +36,16 @@ namespace otus_hw8
         }
     };
 
-    HashFunction create_hash_function(HashFunctionType t)
+    HashFunction create_hash_function(const HashFunctionType t)
     {
-        static std::unordered_map<HashFunctionType, boost::factory<IHashFunctionPtr>> registry = { {HashFunctionType::HashDumb, boost::factory<HashDumbImpl*>}
-        //, {HashFunctionType::HashMD5, }, {HashFunctionType::HashCRC32} 
+        using HashFactory_t = std::function<IHashFunction* ()>;
+        static std::map<HashFunctionType, HashFactory_t> registry = { 
+            {HashFunctionType::HashDumb, boost::factory<HashDumbImpl*>()} 
         };
         auto p = registry.find(t);
-        return p != registry.end() ? p->second() : nullptr;
+        if (p == registry.end()) 
+            return nullptr;
+        auto spHF = IHashFunctionPtr(p->second()); 
+        return [spHF](const uint8_t *data, size_t data_size) -> HashCode { return (*spHF)(data, data_size);  };
     }   
-
 } // otus_hw8

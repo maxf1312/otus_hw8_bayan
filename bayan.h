@@ -7,6 +7,7 @@
 #include <set>
 #include <unordered_map>
 #include <boost/filesystem.hpp>
+#include "hashalgo.hpp"
 
 
 namespace otus_hw8{
@@ -114,6 +115,8 @@ namespace otus_hw8{
 
         bool operator == (const FileInfoSet_t& rhs) const { return  file_sz_ == rhs.file_sz_ && file_set_ == rhs.file_set_; }
 
+        void set_hash_func(HashFunction const & hash_func) { hash_func_ = hash_func;}
+        HashFunction get_hash_func() const { return hash_func_;}
     private:
         void find_duplicates_for_file(FileInfos_t::iterator file0, FileInfos_t::iterator file_end, DupFilePtrSet_t& dup_fileptr_set);
 
@@ -125,6 +128,8 @@ namespace otus_hw8{
 
         /// @brief Набор информации о файлах в данном наборе
         FileInfos_t file_set_;
+
+        HashFunction hash_func_;
     };
     
     /**
@@ -160,7 +165,7 @@ namespace otus_hw8{
     class FileDupSearcher
     {
     public:
-        FileDupSearcher();
+        FileDupSearcher(HashFunction const& hash_func = create_hash_function(HashFunctionType::HashDumb));
         void add_dir(const std::string& dir_path);
         void find_duplicates();
         FilesCollectionPtr const& files() const { return files_; }
@@ -169,7 +174,8 @@ namespace otus_hw8{
         void remove_single_file_sets();
         void find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set, DupFilePtrSet_t& dup_fileptr_set);
         FilesCollectionPtr files_;
-        DupFilePtrSet_t    dup_filepointers_;    
+        DupFilePtrSet_t    dup_filepointers_;
+        HashFunction       hash_func_;
     };
 
 

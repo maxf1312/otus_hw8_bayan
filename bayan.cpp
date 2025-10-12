@@ -63,13 +63,15 @@ namespace otus_hw8{
 
     FileInfo::HashCode FileInfo::hash_data(const uint8_t* data, size_t data_size)
     {
-        uint32_t hc = std::accumulate(data, data + data_size, uint32_t{},
-                [](const auto& new_v, const auto& sum_v) -> uint32_t { return (sum_v + new_v) << 1; }
-        );
-        HashCode rv{};
-        for(int n = 4; n > 0; --n, hc >>= 8)
-            rv.push_back(hc & 0xFF);
-        return rv;
+        // uint32_t hc = std::accumulate(data, data + data_size, uint32_t{},
+        //         [](const auto& new_v, const auto& sum_v) -> uint32_t { return (sum_v + new_v) << 1; }
+        // );
+        // HashCode rv{};
+        // for(int n = 4; n > 0; --n, hc >>= 8)
+        //     rv.push_back(hc & 0xFF);
+        // return rv;
+
+        return owner_.get_hash_func()(data, data_size);
     }
 
     bool   FileInfo::check_duplicate(FileInfo& rhs, DupFilePtrSet_t& dup_fileptr_set)
@@ -146,7 +148,9 @@ namespace otus_hw8{
         }            
     }
     
-    FileDupSearcher::FileDupSearcher() : files_(std::make_shared<FilesCollection_t>()) {}
+    FileDupSearcher::FileDupSearcher(HashFunction const& hash_func) 
+        : files_(std::make_shared<FilesCollection_t>()), hash_func_(hash_func)
+    {}
     
     void FileDupSearcher::add_dir(const std::string& dir_path){
         FileFinder finder(dir_path, 0, 1, files_);
@@ -169,6 +173,7 @@ namespace otus_hw8{
             auto& [_, file_set] = file_set_by_sz; 
             if(file_set.size() <= 1)
                 continue;
+            file_set.set_hash_func(hash_func_);
             find_duplicates_for_same_file_sizes(file_set, dup_filepointers_);
         }
     }
