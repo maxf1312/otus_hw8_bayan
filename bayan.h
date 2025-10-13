@@ -16,7 +16,8 @@ namespace otus_hw8{
     struct Options
     {
         bool   show_help;
-        size_t cmd_chunk_sz;
+        size_t block_sz;
+        std::string hash_func;
     };
     bool parse_command_line(int argc, const char* argv[], Options& parsed_options);
 

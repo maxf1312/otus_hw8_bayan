@@ -63,14 +63,6 @@ namespace otus_hw8{
 
     FileInfo::HashCode FileInfo::hash_data(const uint8_t* data, size_t data_size)
     {
-        // uint32_t hc = std::accumulate(data, data + data_size, uint32_t{},
-        //         [](const auto& new_v, const auto& sum_v) -> uint32_t { return (sum_v + new_v) << 1; }
-        // );
-        // HashCode rv{};
-        // for(int n = 4; n > 0; --n, hc >>= 8)
-        //     rv.push_back(hc & 0xFF);
-        // return rv;
-
         return owner_.get_hash_func()(data, data_size);
     }
 

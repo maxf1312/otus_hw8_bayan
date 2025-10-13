@@ -145,4 +145,36 @@ TEST(test_bayan, test_find_dup)
     EXPECT_EQ(etalon_set, result_set) << "Result and etalon sets are not equal!";
 }
 
+TEST(test_bayan, test_find_dup_crc16)
+{
+    bfs::path p(__FILE__);
+    auto parent_dir = p.parent_path();
+    auto test_data_dir = parent_dir / "test_data/";
+    EXPECT_EQ(test_data_dir.wstring(), parent_dir.wstring() + L"/test_data/" );
+
+    std::set<std::string>  etalon_set;
+    for(size_t i : {1, 2, 3, 5, 6, 8, 9, 10} )
+    {
+        char file_nm[32];
+        snprintf(file_nm, sizeof(file_nm)/sizeof(file_nm[0]), "test%02lu.txt", i);
+        auto file_path = test_data_dir / file_nm;
+        etalon_set.insert(file_path.string());
+    }
+    
+    std::set<std::string>  result_set;
+    FileDupSearcher searcher(create_hash_function("crc16"));
+    searcher.add_dir(test_data_dir.string());
+    searcher.find_duplicates();
+    for( const auto file_ptr_set: searcher.dup_filepointers() )
+    {
+        for( const auto file_info_ptr : *file_ptr_set )
+        {
+            result_set.insert(file_info_ptr->file_path_);
+            std::cout << file_info_ptr->file_path_ << std::endl;
+        }
+        std::cout << std::endl;
+    }
+
+    EXPECT_EQ(etalon_set, result_set) << "Result and etalon sets are not equal!";
+}
 
