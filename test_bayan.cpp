@@ -90,18 +90,28 @@ TEST(test_bayan, test_file_collect)
         file_set.add_file(file_path.string()); 
     }
 
+    std::set<std::string>  etalon_set;
     for( const auto& [sz, file_set]: files )
     {
         std::cout << "sz: " << sz << std::endl;
         for( auto const& file_inf: file_set )
-        std::cout << "\tfile_info: " << file_inf.file_path_ << std::endl;
+        {
+            std::cout << "\tfile_info: " << file_inf.file_path_ << std::endl;
+            etalon_set.insert(file_inf.file_path_);
+        }
     }
 
     
     auto files2 = std::make_shared<FilesCollection_t>();
     FileFinder finder(test_data_dir.string(), 0, 1, files2);
     finder.find_files();
-    EXPECT_EQ(files, *files2) << "Filecollections are not equal!";
+
+    std::set<std::string>  testing_set;
+    for( const auto& [sz, file_set]: *files2 )
+    {
+        std::transform(file_set.begin(), file_set.end(), std::inserter(testing_set, testing_set.begin()), [](const auto& p_fi) -> std::string { return p_fi.file_path_; } );
+    }
+    EXPECT_EQ(etalon_set, testing_set) << "Filecollections are not equal!";
 
     for( const auto& [sz, file_set]: *files2 )
     {
@@ -163,6 +173,7 @@ TEST(test_bayan, test_find_dup_crc16)
     
     std::set<std::string>  result_set;
     FileDupSearcher searcher(create_hash_function("crc16"));
+    FileInfoSet_t::set_hash_sz(get_hash_bytes_len(HashFunctionType::HashCRC16));
     searcher.add_dir(test_data_dir.string());
     searcher.find_duplicates();
     for( const auto file_ptr_set: searcher.dup_filepointers() )

@@ -7,16 +7,24 @@
 #include <boost/interprocess/file_mapping.hpp>
 #include <boost/interprocess/mapped_region.hpp>
 
-
 #include "bayan_internal.h"
 
 namespace otus_hw8{
     using namespace std;
 
     file_sz_t FileInfoSet_t::block_sz_ = 5;
-    file_sz_t FileInfo::block_sz_ = FileInfoSet_t::block_sz();
-    file_sz_t FileInfo::hashcode_sz_ = sizeof(uint32_t);
+    file_sz_t FileInfoSet_t::hashcode_sz_ = sizeof(uint32_t);
     
+    file_sz_t FileInfo::block_sz()
+    {
+        return FileInfoSet_t::block_sz();
+    }
+
+    size_t FileInfo::hashcode_sz()
+    {
+        return FileInfoSet_t::hashcode_sz();
+    }
+        
 
     FileInfo::FileInfo(const std::string& file_path, FileInfoSet_t& owner) 
         : file_path_{ bfs::absolute(bfs::path(file_path)).string() }, 
@@ -33,15 +41,15 @@ namespace otus_hw8{
         if( blk_cnt_must_be_max && (block_count() < owner_.max_block_count() || block_count() != rhs.block_count()))
             return false;
         auto p_end = begin(hash_codes_); 
-        advance(p_end, block_cnt * hashcode_sz_); 
+        advance(p_end, block_cnt * hashcode_sz()); 
         return equal(begin(hash_codes_), p_end, begin(rhs.hash_codes_));        
     } 
 
     void FileInfo::read_and_hash_blocks(size_t up_to_blocks_count)
     {
         using namespace boost::interprocess;
-        size_t region_off = block_count() * block_sz_;
-        size_t region_size = (up_to_blocks_count - block_count()) * block_sz_;
+        size_t region_off = block_count() * block_sz();
+        size_t region_size = (up_to_blocks_count - block_count()) * block_sz();
         
         file_mapping m_file(file_path_.c_str(), read_only);
         mapped_region region(m_file, read_only, region_off, region_size);
@@ -53,10 +61,10 @@ namespace otus_hw8{
         std::ignore = real_region_size;
 
         for(uint8_t const* p_begin = reinterpret_cast<uint8_t const*>(region_addr), 
-            *p_end = p_begin + region_size; p_begin != p_end; p_begin += block_sz_
+            *p_end = p_begin + region_size; p_begin != p_end; p_begin += block_sz()
         )
         {
-            HashCode h = hash_data(p_begin, block_sz_);
+            HashCode h = hash_data(p_begin, block_sz());
             copy(h.begin(), h.end(), back_inserter(hash_codes_));
         }
     }
@@ -130,6 +138,16 @@ namespace otus_hw8{
     }
     
 
+    void FileInfoSet_t::set_block_sz(file_sz_t blk_sz)
+    {
+        block_sz_ = blk_sz;
+    }
+
+    void FileInfoSet_t::set_hash_sz(file_sz_t hash_sz)
+    {
+        hashcode_sz_ = hash_sz;
+    }
+    
     void FileFinder::find_files()
     {
         for(bfs::directory_iterator cur_file(dir_path_), end_file; cur_file != end_file; ++cur_file)
@@ -139,7 +157,8 @@ namespace otus_hw8{
             file_set.add_file(cur_file->path().string());
         }            
     }
-    
+
+     
     FileDupSearcher::FileDupSearcher(HashFunction const& hash_func) 
         : files_(std::make_shared<FilesCollection_t>()), hash_func_(hash_func)
     {}

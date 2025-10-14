@@ -38,12 +38,6 @@ namespace otus_hw8{
         /// @brief Тип списка хэшей - разделены по размеру блока
         using Hashes_t = std::vector<uint8_t>;
         
-        /// @brief размер блока
-        static file_sz_t block_sz_;
-
-        /// @brief размер хэша
-        static size_t hashcode_sz_;
-        
         /// @brief полный путь к файлу
         std::string file_path_;
 
@@ -61,9 +55,15 @@ namespace otus_hw8{
         /// @param owner владелец данной инфы о файле
         FileInfo(const std::string& file_path, FileInfoSet_t& owner);
 
+        /// @brief размер блока
+        static file_sz_t block_sz();
+
+        /// @brief размер хэш-кода
+        static size_t hashcode_sz();
+        
         bool operator < (const FileInfo& rhs) const { return file_path_ < rhs.file_path_; }
         bool operator == (const FileInfo& rhs) const { return file_path_ == rhs.file_path_; }
-        size_t block_count() const { return hash_codes_.size() / hashcode_sz_; }
+        size_t block_count() const { return hash_codes_.size() / hashcode_sz(); }
         bool   check_duplicate(FileInfo& rhs, DupFilePtrSet_t& dup_fileptr_set);
 
         /// @brief Сравнивает массив хэешей this и rhs. Сравнение происходит по размеру минимального из двух массивов
@@ -101,6 +101,9 @@ namespace otus_hw8{
         /// @brief размер блока
         static file_sz_t block_sz() { return block_sz_; }
 
+        /// @brief размер хэш-кода
+        static size_t hashcode_sz() { return hashcode_sz_; }
+        
         /// @brief размер каждого файла в данном наборе        
         file_sz_t file_sz() const { return file_sz_; }
 
@@ -118,12 +121,17 @@ namespace otus_hw8{
 
         void set_hash_func(HashFunction const & hash_func) { hash_func_ = hash_func;}
         HashFunction get_hash_func() const { return hash_func_;}
+        static void set_block_sz(file_sz_t blk_sz);
+        static void set_hash_sz(file_sz_t hash_sz);
     private:
         void find_duplicates_for_file(FileInfos_t::iterator file0, FileInfos_t::iterator file_end, DupFilePtrSet_t& dup_fileptr_set);
 
         /// @brief размер блока
         static file_sz_t block_sz_;
 
+        /// @brief размер хэша
+        static size_t hashcode_sz_;
+        
         /// @brief размер каждого файла в данном наборе        
         file_sz_t file_sz_;
 
@@ -149,7 +157,7 @@ namespace otus_hw8{
         :   dir_path_(dir_path),
             depth_(depth),
             min_file_sz_(min_file_sz),
-            dest_files_(dest_files) 
+            dest_files_(dest_files)
         {
             std::ignore = depth_;
             std::ignore = min_file_sz_;
