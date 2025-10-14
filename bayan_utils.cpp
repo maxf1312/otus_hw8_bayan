@@ -15,7 +15,7 @@ namespace otus_hw8{
         constexpr const char* const OPTION_NAME_HELP = "help"; 
         constexpr const char* const OPTION_NAME_BLOCK_SIZE = "block_size"; 
         constexpr const char* const OPTION_NAME_HASH_FUNC = "hash_func"; 
-        parsed_options = {false, 0, {}};
+        parsed_options = {false, {}, {}, 0, {}};
         
         auto check_size = [](const size_t& sz) 
                           { 

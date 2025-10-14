@@ -16,6 +16,7 @@ int main(int argc, char const* argv[])
 			return 1;
 		
 		bfs::path work_dir(".");
+		work_dir.lexically_normal();
 		std::cout << "work_dir: " << work_dir << std::endl;
 		auto files = std::make_shared<FilesCollection_t>();
     	FileFinder finder(work_dir.string(), 0, 1, files);

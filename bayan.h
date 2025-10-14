@@ -16,6 +16,8 @@ namespace otus_hw8{
     struct Options
     {
         bool   show_help;
+        std::vector<std::string> dirs2scan;
+        std::vector<std::string> dirs2excl;
         size_t block_sz;
         std::string hash_func;
     };
