@@ -152,9 +152,18 @@ namespace otus_hw8{
     {
         for(bfs::directory_iterator cur_file(dir_path_), end_file; cur_file != end_file; ++cur_file)
         {
-            file_sz_t file_sz = bfs::file_size(cur_file->path());
-            auto& file_set = (*dest_files_)[file_sz];
-            file_set.add_file(cur_file->path().string());
+            if( cur_file->is_directory() && depth_ > 0 )
+            {
+                FileFinder sub_finder(cur_file->path().string(), depth_ - 1, min_file_sz_, dest_files_);
+                sub_finder.find_files();
+                
+            }
+            else if( cur_file->is_regular_file() )
+            {
+                file_sz_t file_sz = bfs::file_size(cur_file->path());
+                auto& file_set = (*dest_files_)[file_sz];
+                file_set.add_file(cur_file->path().string());
+            }
         }            
     }
 
@@ -164,7 +173,7 @@ namespace otus_hw8{
     {}
     
     void FileDupSearcher::add_dir(const std::string& dir_path){
-        FileFinder finder(dir_path, 0, 1, files_);
+        FileFinder finder(dir_path, 10, 1, files_);
         finder.find_files();
     }
 

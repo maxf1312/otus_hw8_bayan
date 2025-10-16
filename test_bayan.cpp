@@ -122,6 +122,58 @@ TEST(test_bayan, test_file_collect)
     }
 }
 
+TEST(test_bayan, test_file_collect_depth)
+{
+    bfs::path p(__FILE__);
+    auto parent_dir = p.parent_path();
+    auto test_data_dir = parent_dir / "test_data/";
+    EXPECT_EQ(test_data_dir.wstring(), parent_dir.wstring() + L"/test_data/" );
+    FilesCollection_t files;
+    constexpr const size_t Files_count = 10;
+    for(size_t i = 1; i <= Files_count; ++i)
+    {
+        char file_nm[32];
+        snprintf(file_nm, sizeof(file_nm)/sizeof(file_nm[0]), "test%02lu.txt", i);
+        auto file_path = test_data_dir / file_nm;
+        std::cout << file_path << std::endl;
+        
+        file_sz_t file_sz = bfs::file_size(file_path);
+        auto& file_set = files[file_sz];
+        file_set.add_file(file_path.string()); 
+    }
+
+    std::set<std::string>  etalon_set;
+    for( const auto& [sz, file_set]: files )
+    {
+        std::cout << "sz: " << sz << std::endl;
+        for( auto const& file_inf: file_set )
+        {
+            std::cout << "\tfile_info: " << file_inf.file_path_ << std::endl;
+            etalon_set.insert(file_inf.file_path_);
+        }
+    }
+
+    
+    auto files2 = std::make_shared<FilesCollection_t>();
+    FileFinder finder(test_data_dir.string(), 2, 1, files2);
+    finder.find_files();
+
+    std::set<std::string>  testing_set;
+    for( const auto& [sz, file_set]: *files2 )
+    {
+        std::transform(file_set.begin(), file_set.end(), std::inserter(testing_set, testing_set.begin()), [](const auto& p_fi) -> std::string { return p_fi.file_path_; } );
+    }
+    EXPECT_EQ(etalon_set, testing_set) << "Filecollections are not equal!";
+
+    for( const auto& [sz, file_set]: *files2 )
+    {
+        std::cout << "sz2: " << sz << std::endl;
+        for( auto const& file_inf: file_set )
+        std::cout << "\tfile_info2: " << file_inf.file_path_ << std::endl;
+    
+    }
+}
+
 TEST(test_bayan, test_find_dup)
 {
     bfs::path p(__FILE__);

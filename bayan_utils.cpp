@@ -13,9 +13,11 @@ namespace otus_hw8{
     bool parse_command_line(int argc, const char* argv[], Options& parsed_options)
     {
         constexpr const char* const OPTION_NAME_HELP = "help"; 
-        constexpr const char* const OPTION_NAME_BLOCK_SIZE = "block_size"; 
-        constexpr const char* const OPTION_NAME_HASH_FUNC = "hash_func"; 
-        parsed_options = {false, {}, {}, 0, {}};
+        constexpr const char* const OPTION_NAME_BLOCK_SIZE = "block-size"; 
+        constexpr const char* const OPTION_NAME_HASH_FUNC = "hash-func"; 
+        constexpr const char* const OPTION_NAME_DEPTH = "depth"; 
+        constexpr const char* const OPTION_NAME_MIN_FILE_SZ = "min-file-size"; 
+        parsed_options = {false, {}, {}, 0, {}, 0, 1 };
         
         auto check_size = [](const size_t& sz) 
                           { 
@@ -30,7 +32,9 @@ namespace otus_hw8{
         desc.add_options()
             (OPTION_NAME_HELP, po::bool_switch(&parsed_options.show_help), "Отображение справки")
             (OPTION_NAME_BLOCK_SIZE, po::value<size_t>(&parsed_options.block_sz)->notifier(check_size), "Размер блока сравнения")
-            (OPTION_NAME_HASH_FUNC, po::value<std::string>(&parsed_options.hash_func)->notifier(check_hash_func), "Функция хэширования");
+            (OPTION_NAME_HASH_FUNC, po::value<std::string>(&parsed_options.hash_func)->notifier(check_hash_func), "Функция хэширования")
+            (OPTION_NAME_DEPTH, po::value<size_t>(&parsed_options.depth)->notifier(check_size), "Глубина сканирования вложенных директорий")
+            (OPTION_NAME_MIN_FILE_SZ, po::value<size_t>(&parsed_options.min_file_size)->notifier(check_size), "Минимальный размер файла");
 
         po::positional_options_description pos_desc;
         pos_desc.add(OPTION_NAME_BLOCK_SIZE, -1);

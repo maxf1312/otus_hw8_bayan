@@ -17,10 +17,13 @@ int main(int argc, char const* argv[])
 		
 		bfs::path work_dir(".");
 		work_dir.lexically_normal();
+		work_dir = bfs::canonical(work_dir);
 		std::cout << "work_dir: " << work_dir << std::endl;
+		
 		auto files = std::make_shared<FilesCollection_t>();
-    	FileFinder finder(work_dir.string(), 0, 1, files);
+    	FileFinder finder(work_dir.string(), 10, 1, files);
     	finder.find_files();
+
 		HashFunctionType hash_type = hash_function_type(options.hash_func);		
  		FileDupSearcher searcher(create_hash_function(hash_type));
 		FileInfoSet_t::set_hash_sz(get_hash_bytes_len(hash_type));

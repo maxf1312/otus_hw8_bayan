@@ -20,6 +20,8 @@ namespace otus_hw8{
         std::vector<std::string> dirs2excl;
         size_t block_sz;
         std::string hash_func;
+        size_t depth;
+        size_t min_file_size;        
     };
     bool parse_command_line(int argc, const char* argv[], Options& parsed_options);
 
