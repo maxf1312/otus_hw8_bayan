@@ -129,20 +129,23 @@ TEST(test_bayan, test_file_collect_depth)
     auto test_data_dir = parent_dir / "test_data/";
     EXPECT_EQ(test_data_dir.wstring(), parent_dir.wstring() + L"/test_data/" );
     FilesCollection_t files;
-    constexpr const size_t Files_count = 10;
-    for(size_t i = 1; i <= Files_count; ++i)
-    {
-        char file_nm[32];
-        snprintf(file_nm, sizeof(file_nm)/sizeof(file_nm[0]), "test%02lu.txt", i);
-        auto file_path = test_data_dir / file_nm;
-        std::cout << file_path << std::endl;
-        
-        file_sz_t file_sz = bfs::file_size(file_path);
-        auto& file_set = files[file_sz];
-        file_set.add_file(file_path.string()); 
-    }
 
-    std::set<std::string>  etalon_set;
+    auto scan_dir = [](bfs::path const &dir_to_scan, FilesCollection_t& files)
+    {
+        for (bfs::recursive_directory_iterator cur_file_it(dir_to_scan); cur_file_it != end(cur_file_it) ; ++cur_file_it)
+        {
+            std::cout << cur_file_it->path() << std::endl;
+            if( cur_file_it->is_regular_file() ){
+                file_sz_t file_sz = bfs::file_size(cur_file_it->path());
+                auto &file_set = files[file_sz];
+                file_set.add_file(cur_file_it->path().string());
+            }
+        }
+    };
+
+    scan_dir(test_data_dir, files);
+
+    std::set<std::string> etalon_set;
     for( const auto& [sz, file_set]: files )
     {
         std::cout << "sz: " << sz << std::endl;

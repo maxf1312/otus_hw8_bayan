@@ -148,13 +148,13 @@ namespace otus_hw8{
         hashcode_sz_ = hash_sz;
     }
     
-    void FileFinder::find_files()
+    void FileFinder::find_files() const
     {
         for(bfs::directory_iterator cur_file(dir_path_), end_file; cur_file != end_file; ++cur_file)
         {
-            if( cur_file->is_directory() && depth_ > 0 )
+            if( cur_file->is_directory() && dirs_to_excl_->end() == dirs_to_excl_->find(cur_file->path().string()) && depth_ > 0 )
             {
-                FileFinder sub_finder(cur_file->path().string(), depth_ - 1, min_file_sz_, dest_files_);
+                FileFinder sub_finder(cur_file->path().string(), depth_ - 1, min_file_sz_, dest_files_, dirs_to_excl_);
                 sub_finder.find_files();
                 
             }
@@ -172,8 +172,16 @@ namespace otus_hw8{
         : files_(std::make_shared<FilesCollection_t>()), hash_func_(hash_func)
     {}
     
-    void FileDupSearcher::add_dir(const std::string& dir_path){
-        FileFinder finder(dir_path, 10, 1, files_);
+    void FileDupSearcher::add_dir(const std::string& dir_path, size_t depth, file_sz_t min_size, string_arr_t const& dirs_to_excl)
+    {
+        auto sp_dirs_to_excl = std::make_shared<std::set<std::string>>();
+        std::transform(dirs_to_excl.begin(), dirs_to_excl.end(), std::inserter(*sp_dirs_to_excl, sp_dirs_to_excl->end()), 
+            [](const auto& s_dir){ return bfs::canonical(bfs::path{s_dir}.lexically_normal()).string(); }
+        );
+        for(const auto& dir: *sp_dirs_to_excl)
+            std::cout << "excl dir: " << dir << std::endl;
+
+        FileFinder finder(dir_path, depth, min_size, files_, sp_dirs_to_excl);
         finder.find_files();
     }
 

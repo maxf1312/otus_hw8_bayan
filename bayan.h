@@ -13,15 +13,18 @@
 namespace otus_hw8{
     using std::istream;
     using std::ostream;
+
+    using string_arr_t = std::vector<std::string>;
     struct Options
     {
         bool   show_help;
-        std::vector<std::string> dirs2scan;
-        std::vector<std::string> dirs2excl;
+        string_arr_t dirs2scan;
+        string_arr_t dirs2excl;
         size_t block_sz;
         std::string hash_func;
         size_t depth;
         size_t min_file_size;        
+        string_arr_t file_mask;
     };
     bool parse_command_line(int argc, const char* argv[], Options& parsed_options);
 
@@ -157,18 +160,18 @@ namespace otus_hw8{
     class FileFinder
     {
     public:
-        FileFinder(std::string const& dir_path, size_t depth, size_t min_file_sz, FilesCollectionPtr dest_files)
+        FileFinder(std::string const& dir_path, size_t depth, size_t min_file_sz, FilesCollectionPtr dest_files, std::shared_ptr<std::set<std::string>> const& excl_dirs = {})
         :   dir_path_(dir_path),
+            dirs_to_excl_(excl_dirs),
             depth_(depth),
             min_file_sz_(min_file_sz),
-            dest_files_(dest_files)
+            dest_files_(dest_files)             
         {
-            std::ignore = depth_;
-            std::ignore = min_file_sz_;
         }
-        void find_files();
+        void find_files() const;
     private:
         std::string dir_path_;
+        std::shared_ptr<std::set<std::string>> dirs_to_excl_;
         size_t depth_;
         size_t min_file_sz_;
         FilesCollectionPtr dest_files_;
@@ -179,7 +182,7 @@ namespace otus_hw8{
     {
     public:
         FileDupSearcher(HashFunction const& hash_func = create_hash_function(HashFunctionType::HashDumb));
-        void add_dir(const std::string& dir_path);
+        void add_dir(const std::string& dir_path, size_t depth = 0, file_sz_t min_size = 1, const string_arr_t& dirs_to_excl = {});
         void find_duplicates();
         FilesCollectionPtr const& files() const { return files_; }
         DupFilePtrSet_t const&    dup_filepointers() const { return dup_filepointers_; }
