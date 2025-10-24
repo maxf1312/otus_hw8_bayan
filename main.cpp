@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
 			bfs::path work_dir(d);
 			work_dir = bfs::canonical(work_dir.lexically_normal());
 			std::cout << "work_dir: " << work_dir << std::endl;
-			searcher.add_dir(work_dir.string(), options.depth, options.min_file_size, options.dirs2excl);
+			searcher.add_dir(work_dir.string(), options.depth, options.min_file_size, options.dirs2excl, options.file_mask);
 		}
 		searcher.find_duplicates();
 

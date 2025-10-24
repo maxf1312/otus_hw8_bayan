@@ -7,11 +7,14 @@
 #include <map>
 #include <boost/functional/factory.hpp>
 #include <boost/crc.hpp>
+#include <boost/uuid/detail/md5.hpp>
 
 #include "hashalgo.hpp"
 
 namespace otus_hw8
 {
+    using boost::uuids::detail::md5;
+
     /// @brief Стратегия вычисления хэш-кода для последовательности байт
     struct IHashFunction
     {
@@ -36,6 +39,27 @@ namespace otus_hw8
             for (int n = 4; n > 0; --n, hc >>= 8)
                 rv.push_back(hc & 0xFF);
             return rv;
+        }
+    };
+
+    class HashMD5Impl : public IHashFunction
+    {
+    public:
+        virtual size_t hash_len() const override 
+        {
+            return sizeof(md5::digest_type);
+        } 
+        virtual HashCode make_hash(const uint8_t *data, size_t data_size) const override
+        {
+            md5 hash;
+            hash.process_bytes(data, data_size);
+
+            md5::digest_type md5result;
+            hash.get_digest(md5result);
+
+            HashCode::value_type const *beg_md5 = reinterpret_cast<HashCode::value_type*>(&md5result[0]), 
+                                       *end_md5 = beg_md5 + sizeof(md5result);
+            return HashCode(beg_md5, end_md5);
         }
     };
 
@@ -65,6 +89,7 @@ namespace otus_hw8
         using HashFactory_t = std::function<IHashFunction* ()>;
         static std::map<HashFunctionType, HashFactory_t> registry = { 
             {HashFunctionType::HashDumb,  boost::factory<HashDumbImpl*>()}, 
+            {HashFunctionType::HashMD5,   boost::factory<HashMD5Impl*>()}, 
             {HashFunctionType::HashCRC16, boost::factory<HashCRC16Impl*>()},
             {HashFunctionType::HashCRC32, boost::factory<HashCRC32Impl*>()}
         };
@@ -76,16 +101,7 @@ namespace otus_hw8
 
     HashFunction create_hash_function(const HashFunctionType t)
     {
-        using HashFactory_t = std::function<IHashFunction* ()>;
-        static std::map<HashFunctionType, HashFactory_t> registry = { 
-            {HashFunctionType::HashDumb,  boost::factory<HashDumbImpl*>()}, 
-            {HashFunctionType::HashCRC16, boost::factory<HashCRC16Impl*>()},
-            {HashFunctionType::HashCRC32, boost::factory<HashCRC32Impl*>()}
-        };
-        auto p = registry.find(t);
-        if (p == registry.end()) 
-            return nullptr;
-        auto spHF = IHashFunctionPtr(p->second()); 
+        auto spHF = create_hash_function_impl( t );
         return [spHF](const uint8_t *data, size_t data_size) -> HashCode { return (*spHF)(data, data_size);  };
     }
 

@@ -7,6 +7,7 @@
 #include <set>
 #include <unordered_map>
 #include <boost/filesystem.hpp>
+#include <boost/regex.hpp>
 #include "hashalgo.hpp"
 
 
@@ -15,6 +16,8 @@ namespace otus_hw8{
     using std::ostream;
 
     using string_arr_t = std::vector<std::string>;
+    using string_set_t = std::set<std::string>;
+    using regex_arr_t = std::vector<boost::regex>;
     struct Options
     {
         bool   show_help;
@@ -160,18 +163,24 @@ namespace otus_hw8{
     class FileFinder
     {
     public:
-        FileFinder(std::string const& dir_path, size_t depth, size_t min_file_sz, FilesCollectionPtr dest_files, std::shared_ptr<std::set<std::string>> const& excl_dirs = {})
-        :   dir_path_(dir_path),
-            dirs_to_excl_(excl_dirs),
-            depth_(depth),
-            min_file_sz_(min_file_sz),
-            dest_files_(dest_files)             
+        FileFinder(std::string const &dir_path, size_t depth, size_t min_file_sz, FilesCollectionPtr dest_files,
+                   std::shared_ptr<string_set_t> const &excl_dirs = {},
+                   std::shared_ptr<regex_arr_t> const &file_mask_re = {})
+            : dir_path_(dir_path),
+              dirs_to_excl_(excl_dirs),
+              file_mask_re_(file_mask_re),
+              depth_(depth),
+              min_file_sz_(min_file_sz),
+              dest_files_(dest_files)
         {
         }
         void find_files() const;
+
     private:
+        bool is_file_mask_match(const std::string& file_path) const;
         std::string dir_path_;
-        std::shared_ptr<std::set<std::string>> dirs_to_excl_;
+        std::shared_ptr<string_set_t> dirs_to_excl_;
+        std::shared_ptr<regex_arr_t> file_mask_re_;
         size_t depth_;
         size_t min_file_sz_;
         FilesCollectionPtr dest_files_;
@@ -182,10 +191,11 @@ namespace otus_hw8{
     {
     public:
         FileDupSearcher(HashFunction const& hash_func = create_hash_function(HashFunctionType::HashDumb));
-        void add_dir(const std::string& dir_path, size_t depth = 0, file_sz_t min_size = 1, const string_arr_t& dirs_to_excl = {});
+        void add_dir(const std::string& dir_path, size_t depth = 0, file_sz_t min_size = 1, const string_arr_t& dirs_to_excl = {}, const string_arr_t& file_mask = {});
         void find_duplicates();
         FilesCollectionPtr const& files() const { return files_; }
         DupFilePtrSet_t const&    dup_filepointers() const { return dup_filepointers_; }
+        static std::string        reg_ex_from_file_mask(const std::string& file_mask);
     private:
         void remove_single_file_sets();
         void find_duplicates_for_same_file_sizes(FileInfoSet_t& file_set, DupFilePtrSet_t& dup_fileptr_set);
