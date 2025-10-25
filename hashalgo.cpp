@@ -130,5 +130,9 @@ namespace otus_hw8
         return spF ? spF->hash_len() : 4;
     }
 
+    size_t           get_hash_bytes_len( const std::string& t )
+    {
+        return get_hash_bytes_len( hash_function_type(t) );
+    }
     
 } // otus_hw8

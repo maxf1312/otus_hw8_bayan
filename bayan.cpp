@@ -148,43 +148,36 @@ namespace otus_hw8{
     {
         hashcode_sz_ = hash_sz;
     }
-    
-    bool FileFinder::is_file_mask_match(const std::string& file_path) const
+
+    bool FileFinder::is_file_mask_match(const std::string &file_path) const
     {
         return !file_mask_re_ || file_mask_re_->empty() ||
-                file_mask_re_->end() != std::find_if(file_mask_re_->begin(), file_mask_re_->end(),
-                                                     [&file_path](const auto& re)
-                                                     {
-                                                        std::cout << "re:" << re.str() << std::endl;
-                                                        std::cout << "file_path:" << file_path << std::endl;
-                                                        
+               file_mask_re_->end() != std::find_if(file_mask_re_->begin(), file_mask_re_->end(),
+                                                    [&file_path](const auto &re)
+                                                    {
                                                         return boost::regex_search(file_path, re);
-                                                     }
-                                                    );
+                                                    });
     }
 
     void FileFinder::find_files() const
     {
-        for(bfs::directory_iterator cur_file(dir_path_), end_file; cur_file != end_file; ++cur_file)
+        for (bfs::directory_iterator cur_file(dir_path_), end_file; cur_file != end_file; ++cur_file)
         {
-            if( cur_file->is_directory() && depth_ > 0 && 
-                (!dirs_to_excl_ || dirs_to_excl_->end() == dirs_to_excl_->find(cur_file->path().string()) ) 
-            )
+            if (cur_file->is_directory() && depth_ > 0 &&
+                (!dirs_to_excl_ || dirs_to_excl_->end() == dirs_to_excl_->find(cur_file->path().string())))
             {
                 FileFinder sub_finder(cur_file->path().string(), depth_ - 1, min_file_sz_, dest_files_, dirs_to_excl_, file_mask_re_);
                 sub_finder.find_files();
-                
             }
-            else if( cur_file->is_regular_file() && is_file_mask_match(cur_file->path().string()) )
+            else if (cur_file->is_regular_file() && is_file_mask_match(cur_file->path().string()))
             {
                 file_sz_t file_sz = bfs::file_size(cur_file->path());
-                auto& file_set = (*dest_files_)[file_sz];
+                auto &file_set = (*dest_files_)[file_sz];
                 file_set.add_file(cur_file->path().string());
             }
-        }            
+        }
     }
 
-     
     FileDupSearcher::FileDupSearcher(HashFunction const& hash_func) 
         : files_(std::make_shared<FilesCollection_t>()), hash_func_(hash_func)
     {}
@@ -196,14 +189,14 @@ namespace otus_hw8{
             [](const auto& s_dir){ return bfs::canonical(bfs::path{s_dir}.lexically_normal()).string(); }
         );
         for(const auto& dir: *sp_dirs_to_excl)
-            std::cout << "excl dir: " << dir << std::endl;
+            std::cout << "exclude dir: " << dir << std::endl;
 
         auto sp_file_mask_re = std::make_shared<regex_arr_t>();
         std::transform(file_mask.begin(), file_mask.end(), std::inserter(*sp_file_mask_re, sp_file_mask_re->end()), 
             [](const auto& s_mask) { return boost::regex( reg_ex_from_file_mask(s_mask), boost::regex::basic|boost::regex::icase); }
         );
         for(const auto& re: *sp_file_mask_re)
-            std::cout << "regex: " << re.str() << std::endl;
+            std::cout << "file mask regex: " << re.str() << std::endl;
 
         FileFinder finder(dir_path, depth, min_size, files_, sp_dirs_to_excl, sp_file_mask_re);
         finder.find_files();
