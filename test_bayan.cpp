@@ -280,6 +280,41 @@ TEST(test_bayan, test_find_dup_md5)
     EXPECT_EQ(etalon_set, result_set) << "Result and etalon sets are not equal!";
 }
 
+TEST(test_bayan, test_find_dup_sz)
+{
+    bfs::path p(__FILE__);
+    auto parent_dir = p.parent_path();
+    auto test_data_dir = parent_dir / "test_data/";
+    EXPECT_EQ(test_data_dir.wstring(), parent_dir.wstring() + L"/test_data/" );
+
+    std::set<std::string>  etalon_set;
+    for(size_t i : {3, 5} )
+    {
+        char file_nm[32];
+        snprintf(file_nm, sizeof(file_nm)/sizeof(file_nm[0]), "test%02lu.txt", i);
+        auto file_path = test_data_dir / file_nm;
+        etalon_set.insert(file_path.string());
+    }
+    
+    constexpr const file_sz_t min_size = 15; 
+    std::set<std::string>  result_set;
+    FileDupSearcher searcher(create_hash_function("md5"));
+    FileInfoSet_t::set_hash_sz(get_hash_bytes_len(HashFunctionType::HashMD5));
+    searcher.add_dir(test_data_dir.string(), 0, min_size);
+    searcher.find_duplicates();
+    for( const auto file_ptr_set: searcher.dup_filepointers() )
+    {
+        for( const auto file_info_ptr : *file_ptr_set )
+        {
+            result_set.insert(file_info_ptr->file_path_);
+            std::cout << file_info_ptr->file_path_ << std::endl;
+        }
+        std::cout << std::endl;
+    }
+
+    EXPECT_EQ(etalon_set, result_set) << "Result and etalon sets are not equal!";
+}
+
 
 TEST(test_bayan, test_find_files_mask)
 {

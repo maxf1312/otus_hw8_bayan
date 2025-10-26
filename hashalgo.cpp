@@ -15,21 +15,23 @@ namespace otus_hw8
 {
     using boost::uuids::detail::md5;
 
-    /// @brief Стратегия вычисления хэш-кода для последовательности байт
+    /// @brief Интерфейс стратегии вычисления хэш-кода для последовательности байт
     struct IHashFunction
     {
         virtual ~IHashFunction() = default;
-        virtual size_t hash_len() const = 0; 
-        virtual HashCode make_hash(const uint8_t *data, size_t data_size) const = 0; 
+        virtual size_t hash_len() const = 0;
+        virtual HashCode make_hash(const uint8_t *data, size_t data_size) const = 0;
         HashCode operator()(const uint8_t *data, size_t data_size) const { return make_hash(data, data_size); }
     };
 
+    /// @brief Разделяемый указатель на стратегию
     using IHashFunctionPtr = std::shared_ptr<IHashFunction>;
 
+    /// @brief Реализация простого алгоритма 
     class HashDumbImpl : public IHashFunction
     {
     public:
-        virtual size_t hash_len() const override { return 4; } 
+        virtual size_t hash_len() const override { return 4; }
         virtual HashCode make_hash(const uint8_t *data, size_t data_size) const override
         {
             uint32_t hc = std::accumulate(data, data + data_size, uint32_t{},
@@ -42,13 +44,14 @@ namespace otus_hw8
         }
     };
 
+    /// @brief Реализация  алгоритма md5 
     class HashMD5Impl : public IHashFunction
     {
     public:
-        virtual size_t hash_len() const override 
+        virtual size_t hash_len() const override
         {
             return sizeof(md5::digest_type);
-        } 
+        }
         virtual HashCode make_hash(const uint8_t *data, size_t data_size) const override
         {
             md5 hash;
@@ -57,17 +60,18 @@ namespace otus_hw8
             md5::digest_type md5result;
             hash.get_digest(md5result);
 
-            HashCode::value_type const *beg_md5 = reinterpret_cast<HashCode::value_type*>(&md5result[0]), 
+            HashCode::value_type const *beg_md5 = reinterpret_cast<HashCode::value_type *>(&md5result[0]),
                                        *end_md5 = beg_md5 + sizeof(md5result);
             return HashCode(beg_md5, end_md5);
         }
     };
 
-    template<typename crc_algo_t>
+    /// @brief Шаблон реализации семейства алгоритмов CRC 
+    template <typename crc_algo_t>
     class HashCRCxxImpl : public IHashFunction
     {
     public:
-        virtual size_t hash_len() const override { return crc_algo_t::bit_count / 8; } 
+        virtual size_t hash_len() const override { return crc_algo_t::bit_count / 8; }
         virtual HashCode make_hash(const uint8_t *data, size_t data_size) const override
         {
             crc_algo_t crc_algo;
@@ -75,64 +79,68 @@ namespace otus_hw8
             typename crc_algo_t::value_type hc = crc_algo.checksum();
 
             HashCode rv{};
-            for (int n = crc_algo_t::bit_count / 8 ; n > 0; --n, hc >>= 8)
+            for (int n = crc_algo_t::bit_count / 8; n > 0; --n, hc >>= 8)
                 rv.push_back(hc & 0xFF);
             return rv;
         }
     };
 
+    /// @brief Реализация  алгоритма crc32 
     using HashCRC32Impl = HashCRCxxImpl<boost::crc_32_type>;
+    /// @brief Реализация  алгоритма crc16 
     using HashCRC16Impl = HashCRCxxImpl<boost::crc_16_type>;
 
+    /// @brief создать реализацию алгоритма по типу хэш-кода
+    /// @param t тип хэш-кода
+    /// @return указатель на реализацию, скрытый за базовым классом
     IHashFunctionPtr create_hash_function_impl(const HashFunctionType t)
     {
-        using HashFactory_t = std::function<IHashFunction* ()>;
-        static std::map<HashFunctionType, HashFactory_t> registry = { 
-            {HashFunctionType::HashDumb,  boost::factory<HashDumbImpl*>()}, 
-            {HashFunctionType::HashMD5,   boost::factory<HashMD5Impl*>()}, 
-            {HashFunctionType::HashCRC16, boost::factory<HashCRC16Impl*>()},
-            {HashFunctionType::HashCRC32, boost::factory<HashCRC32Impl*>()}
-        };
+        using HashFactory_t = std::function<IHashFunction *()>;
+        static std::map<HashFunctionType, HashFactory_t> registry = {
+            {HashFunctionType::HashDumb, boost::factory<HashDumbImpl *>()},
+            {HashFunctionType::HashMD5, boost::factory<HashMD5Impl *>()},
+            {HashFunctionType::HashCRC16, boost::factory<HashCRC16Impl *>()},
+            {HashFunctionType::HashCRC32, boost::factory<HashCRC32Impl *>()}};
         auto p = registry.find(t);
-        if (p == registry.end()) 
+        if (p == registry.end())
             return nullptr;
-        return IHashFunctionPtr(p->second()); 
+        return IHashFunctionPtr(p->second());
     }
 
     HashFunction create_hash_function(const HashFunctionType t)
     {
-        auto spHF = create_hash_function_impl( t );
-        return [spHF](const uint8_t *data, size_t data_size) -> HashCode { return (*spHF)(data, data_size);  };
+        auto spHF = create_hash_function_impl(t);
+        return [spHF](const uint8_t *data, size_t data_size) -> HashCode
+        { return (*spHF)(data, data_size); };
     }
 
-    HashFunctionType hash_function_type( const std::string& t )
+    HashFunctionType hash_function_type(const std::string &t)
     {
-        static std::unordered_map<std::string, HashFunctionType> types = { 
-            {"dumb", HashFunctionType::HashDumb}, 
-            {"md5", HashFunctionType::HashMD5}, 
+        static std::unordered_map<std::string, HashFunctionType> types = {
+            {"dumb", HashFunctionType::HashDumb},
+            {"md5", HashFunctionType::HashMD5},
             {"crc16", HashFunctionType::HashCRC16},
-            {"crc32", HashFunctionType::HashCRC32}
-        };
+            {"crc32", HashFunctionType::HashCRC32}};
         auto p = types.find(t);
-        if (p == types.end()) 
+        if (p == types.end())
             return HashFunctionType::HashUnknown;
         return p->second;
     }
-    
-    HashFunction    create_hash_function( const std::string& t )
+
+    HashFunction create_hash_function(const std::string &t)
     {
-        return create_hash_function( hash_function_type(t) );
+        return create_hash_function(hash_function_type(t));
     }
 
-    size_t           get_hash_bytes_len( HashFunctionType t )
+    size_t get_hash_bytes_len(HashFunctionType t)
     {
         auto spF = create_hash_function_impl(t);
         return spF ? spF->hash_len() : 4;
     }
 
-    size_t           get_hash_bytes_len( const std::string& t )
+    size_t get_hash_bytes_len(const std::string &t)
     {
-        return get_hash_bytes_len( hash_function_type(t) );
+        return get_hash_bytes_len(hash_function_type(t));
     }
-    
+
 } // otus_hw8
