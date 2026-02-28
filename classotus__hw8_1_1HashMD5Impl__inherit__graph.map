@@ -1,0 +1,5 @@
+<map id="otus_hw8::HashMD5Impl" name="otus_hw8::HashMD5Impl">
+<area shape="rect" id="Node000001" title="Реализация алгоритма md5." alt="" coords="6,79,173,105"/>
+<area shape="rect" id="Node000002" href="$structotus__hw8_1_1IHashFunction.html" title="Интерфейс стратегии вычисления хэш&#45;кода для последовательности байт" alt="" coords="5,5,174,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,46,92,79,87,79,87,46"/>
+</map>

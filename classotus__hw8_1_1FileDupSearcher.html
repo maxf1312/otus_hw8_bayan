@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>bayan: Класс otus_hw8::FileDupSearcher</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">bayan<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">bayan utility for duplicate file searching</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a href="namespaceotus__hw8.html">otus_hw8</a></li><li class="navelem"><a href="classotus__hw8_1_1FileDupSearcher.html">FileDupSearcher</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pub-static-methods">Открытые статические члены</a> &#124;
+<a href="classotus__hw8_1_1FileDupSearcher-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle"><div class="title">Класс otus_hw8::FileDupSearcher</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Основной класс для обработки файлов, использует <a class="el" href="classotus__hw8_1_1FileFinder.html" title="Класс для поиска файлов в указанной директории. Помещает найденные файлы в dest_files_,...">FileFinder</a> для заполнения списка файлов по директории  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="bayan_8h_source.html">bayan.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:aa7bcb6dba281b9ef90a6c49b5584c8d4" id="r_aa7bcb6dba281b9ef90a6c49b5584c8d4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa7bcb6dba281b9ef90a6c49b5584c8d4">FileDupSearcher</a> (<a class="el" href="namespaceotus__hw8.html#abca6405fb7d6a0d583d6c61ea14c89f6">HashFunction</a> const &amp;hash_func=<a class="el" href="namespaceotus__hw8.html#ab86555cd01b2c77b3a456d76365b19ec">create_hash_function</a>(<a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5a917eae0244fbf12ff0738bc88cde3ec5">HashFunctionType::HashDumb</a>))</td></tr>
+<tr class="memitem:a6f0edf1398c435a8f4659b901eded5f6" id="r_a6f0edf1398c435a8f4659b901eded5f6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6f0edf1398c435a8f4659b901eded5f6">add_dir</a> (const std::string &amp;dir_path, size_t depth=0, <a class="el" href="namespaceotus__hw8.html#a1c812c17995e4d766096fd34033113f8">file_sz_t</a> min_size=1, const <a class="el" href="namespaceotus__hw8.html#a80263eb9896b0c991d5143c901e3fb06">string_arr_t</a> &amp;dirs_to_excl={}, const <a class="el" href="namespaceotus__hw8.html#a80263eb9896b0c991d5143c901e3fb06">string_arr_t</a> &amp;file_mask={})</td></tr>
+<tr class="memdesc:a6f0edf1398c435a8f4659b901eded5f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">добавить файлы из каталога в список для сканирования  <br /></td></tr>
+<tr class="memitem:a6539ab20838c84007d855ec05a6b0249" id="r_a6539ab20838c84007d855ec05a6b0249"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6539ab20838c84007d855ec05a6b0249">find_duplicates</a> ()</td></tr>
+<tr class="memdesc:a6539ab20838c84007d855ec05a6b0249"><td class="mdescLeft">&#160;</td><td class="mdescRight">найти дубликаты в добалвенных ранее через <a class="el" href="#a6f0edf1398c435a8f4659b901eded5f6" title="добавить файлы из каталога в список для сканирования">add_dir()</a> ктаалогах  <br /></td></tr>
+<tr class="memitem:aaec995db4f5e07210967a6fddb20377e" id="r_aaec995db4f5e07210967a6fddb20377e"><td class="memItemLeft"><a class="el" href="namespaceotus__hw8.html#a8146a7e16f50506c923c99912502daea">FilesCollectionPtr</a> const &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aaec995db4f5e07210967a6fddb20377e">files</a> () const</td></tr>
+<tr class="memdesc:aaec995db4f5e07210967a6fddb20377e"><td class="mdescLeft">&#160;</td><td class="mdescRight">найденые для сканирования файлы  <br /></td></tr>
+<tr class="memitem:a166c0232348085725f56b96276014792" id="r_a166c0232348085725f56b96276014792"><td class="memItemLeft"><a class="el" href="namespaceotus__hw8.html#a03b10fc97545c727a580920607beb260">DupFilePtrSet_t</a> const &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a166c0232348085725f56b96276014792">dup_filepointers</a> () const</td></tr>
+<tr class="memdesc:a166c0232348085725f56b96276014792"><td class="mdescLeft">&#160;</td><td class="mdescRight">найденные дубликаты  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Открытые статические члены</h2></td></tr>
+<tr class="memitem:acf833a744481f920a9d18cabb11ed0f8" id="r_acf833a744481f920a9d18cabb11ed0f8"><td class="memItemLeft">static std::string&#160;</td><td class="memItemRight"><a class="el" href="#acf833a744481f920a9d18cabb11ed0f8">reg_ex_from_file_mask</a> (const std::string &amp;file_mask)</td></tr>
+<tr class="memdesc:acf833a744481f920a9d18cabb11ed0f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">утилита для получения строки регулярного выражения из маски файла  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Основной класс для обработки файлов, использует <a class="el" href="classotus__hw8_1_1FileFinder.html" title="Класс для поиска файлов в указанной директории. Помещает найденные файлы в dest_files_,...">FileFinder</a> для заполнения списка файлов по директории </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Конструктор(ы)</h2>
+<a id="aa7bcb6dba281b9ef90a6c49b5584c8d4" name="aa7bcb6dba281b9ef90a6c49b5584c8d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7bcb6dba281b9ef90a6c49b5584c8d4">&#9670;&#160;</a></span>FileDupSearcher()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">otus_hw8::FileDupSearcher::FileDupSearcher </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceotus__hw8.html#abca6405fb7d6a0d583d6c61ea14c89f6">HashFunction</a> const &amp;</td>          <td class="paramname"><span class="paramname"><em>hash_func</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespaceotus__hw8.html#ab86555cd01b2c77b3a456d76365b19ec">create_hash_function</a>(<a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5a917eae0244fbf12ff0738bc88cde3ec5">HashFunctionType::HashDumb</a>)</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Методы</h2>
+<a id="a6f0edf1398c435a8f4659b901eded5f6" name="a6f0edf1398c435a8f4659b901eded5f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f0edf1398c435a8f4659b901eded5f6">&#9670;&#160;</a></span>add_dir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void otus_hw8::FileDupSearcher::add_dir </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>dir_path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>depth</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceotus__hw8.html#a1c812c17995e4d766096fd34033113f8">file_sz_t</a></td>          <td class="paramname"><span class="paramname"><em>min_size</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceotus__hw8.html#a80263eb9896b0c991d5143c901e3fb06">string_arr_t</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>dirs_to_excl</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceotus__hw8.html#a80263eb9896b0c991d5143c901e3fb06">string_arr_t</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>file_mask</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>добавить файлы из каталога в список для сканирования </p>
+
+</div>
+</div>
+<a id="a166c0232348085725f56b96276014792" name="a166c0232348085725f56b96276014792"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a166c0232348085725f56b96276014792">&#9670;&#160;</a></span>dup_filepointers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceotus__hw8.html#a03b10fc97545c727a580920607beb260">DupFilePtrSet_t</a> const  &amp; otus_hw8::FileDupSearcher::dup_filepointers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>найденные дубликаты </p>
+
+</div>
+</div>
+<a id="aaec995db4f5e07210967a6fddb20377e" name="aaec995db4f5e07210967a6fddb20377e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaec995db4f5e07210967a6fddb20377e">&#9670;&#160;</a></span>files()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceotus__hw8.html#a8146a7e16f50506c923c99912502daea">FilesCollectionPtr</a> const  &amp; otus_hw8::FileDupSearcher::files </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>найденые для сканирования файлы </p>
+
+</div>
+</div>
+<a id="a6539ab20838c84007d855ec05a6b0249" name="a6539ab20838c84007d855ec05a6b0249"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6539ab20838c84007d855ec05a6b0249">&#9670;&#160;</a></span>find_duplicates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void otus_hw8::FileDupSearcher::find_duplicates </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>найти дубликаты в добалвенных ранее через <a class="el" href="#a6f0edf1398c435a8f4659b901eded5f6" title="добавить файлы из каталога в список для сканирования">add_dir()</a> ктаалогах </p>
+
+</div>
+</div>
+<a id="acf833a744481f920a9d18cabb11ed0f8" name="acf833a744481f920a9d18cabb11ed0f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf833a744481f920a9d18cabb11ed0f8">&#9670;&#160;</a></span>reg_ex_from_file_mask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string otus_hw8::FileDupSearcher::reg_ex_from_file_mask </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>file_mask</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>утилита для получения строки регулярного выражения из маски файла </p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов классов находятся в файлах:<ul>
+<li><a class="el" href="bayan_8h_source.html">bayan.h</a></li>
+<li><a class="el" href="bayan_8cpp.html">bayan.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

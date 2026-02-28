@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>bayan: Файл bayan.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">bayan<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">bayan utility for duplicate file searching</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Классы</a> &#124;
+<a href="#namespaces">Пространства имен</a> &#124;
+<a href="#typedef-members">Определения типов</a> &#124;
+<a href="#func-members">Функции</a>  </div>
+  <div class="headertitle"><div class="title">Файл bayan.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;ctime&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;boost/filesystem.hpp&gt;</code><br />
+<code>#include &lt;boost/regex.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="hashalgo_8hpp_source.html">hashalgo.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Граф включаемых заголовочных файлов для bayan.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="bayan_8h__incl.png" border="0" usemap="#abayan_8h" loading="lazy" alt=""/></div>
+<map name="abayan_8h" id="abayan_8h">
+<area shape="rect" title=" " alt="" coords="331,5,397,31"/>
+<area shape="rect" title=" " alt="" coords="5,153,59,178"/>
+<area shape="poly" title=" " alt="" coords="331,29,254,49,165,81,108,113,61,145,58,141,106,108,163,77,252,44,330,24"/>
+<area shape="rect" title=" " alt="" coords="83,153,154,178"/>
+<area shape="poly" title=" " alt="" coords="332,29,269,48,234,63,202,81,166,111,138,142,134,138,163,107,198,77,232,58,267,43,330,24"/>
+<area shape="rect" title=" " alt="" coords="179,153,232,178"/>
+<area shape="poly" title=" " alt="" coords="331,26,303,32,273,43,243,58,220,81,208,108,205,138,200,137,202,107,215,77,240,54,271,38,302,27,330,21"/>
+<area shape="rect" title=" " alt="" coords="440,153,507,178"/>
+<area shape="poly" title=" " alt="" coords="368,31,375,66,381,85,391,103,412,125,437,142,434,147,409,129,387,106,377,87,369,67,362,32"/>
+<area shape="rect" title=" " alt="" coords="402,79,441,105"/>
+<area shape="poly" title=" " alt="" coords="376,30,404,65,400,68,371,33"/>
+<area shape="rect" title=" " alt="" coords="465,79,575,105"/>
+<area shape="poly" title=" " alt="" coords="392,29,481,70,479,75,389,34"/>
+<area shape="rect" title=" " alt="" coords="600,79,739,105"/>
+<area shape="poly" title=" " alt="" coords="398,25,603,72,602,78,397,30"/>
+<area shape="rect" title=" " alt="" coords="762,79,875,105"/>
+<area shape="poly" title=" " alt="" coords="398,22,747,76,746,81,397,27"/>
+<area shape="rect" href="hashalgo_8hpp.html" title=" " alt="" coords="229,79,326,105"/>
+<area shape="poly" title=" " alt="" coords="351,34,305,71,302,67,348,29"/>
+<area shape="poly" title=" " alt="" coords="236,108,74,154,73,149,234,103"/>
+<area shape="poly" title=" " alt="" coords="252,108,160,148,158,144,249,103"/>
+<area shape="poly" title=" " alt="" coords="267,107,230,143,226,140,264,103"/>
+<area shape="poly" title=" " alt="" coords="311,103,427,144,425,150,310,108"/>
+<area shape="rect" title=" " alt="" coords="257,153,314,178"/>
+<area shape="poly" title=" " alt="" coords="281,105,285,137,280,138,276,105"/>
+<area shape="rect" title=" " alt="" coords="339,153,416,178"/>
+<area shape="poly" title=" " alt="" coords="296,103,349,141,346,145,293,107"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Граф файлов, в которые включается этот файл:</div>
+<div class="dyncontent">
+<div class="center"><img src="bayan_8h__dep__incl.png" border="0" usemap="#abayan_8hdep" loading="lazy" alt=""/></div>
+<map name="abayan_8hdep" id="abayan_8hdep">
+<area shape="rect" title=" " alt="" coords="207,5,272,31"/>
+<area shape="rect" href="bayan__internal_8h.html" title=" " alt="" coords="46,79,161,105"/>
+<area shape="poly" title=" " alt="" coords="204,41,128,81,126,76,202,36"/>
+<area shape="rect" href="bayan__utils_8cpp.html" title=" " alt="" coords="184,79,295,105"/>
+<area shape="poly" title=" " alt="" coords="242,46,242,79,237,79,237,46"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="319,79,392,105"/>
+<area shape="poly" title=" " alt="" coords="273,37,337,76,335,81,271,42"/>
+<area shape="rect" href="bayan_8cpp.html" title=" " alt="" coords="5,153,85,178"/>
+<area shape="poly" title=" " alt="" coords="86,118,57,154,53,150,82,115"/>
+<area shape="rect" href="test__bayan_8cpp.html" title=" " alt="" coords="108,153,216,178"/>
+<area shape="poly" title=" " alt="" coords="125,115,154,150,150,154,121,118"/>
+</map>
+</div>
+</div>
+<p><a href="bayan_8h_source.html">См. исходные тексты.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Классы</h2></td></tr>
+<tr class="memitem:otus_5Fhw8_3A_3AOptions" id="r_otus_5Fhw8_3A_3AOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structotus__hw8_1_1Options.html">otus_hw8::Options</a></td></tr>
+<tr class="memitem:otus_5Fhw8_3A_3AFileInfo" id="r_otus_5Fhw8_3A_3AFileInfo"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structotus__hw8_1_1FileInfo.html">otus_hw8::FileInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Основная структура информации о файле. Содержит список хэш-блоков для сранвнения, путь и размер файла.  <a href="structotus__hw8_1_1FileInfo.html#details">Подробнее...</a><br /></td></tr>
+<tr class="memitem:otus_5Fhw8_3A_3AFileInfoSet_5Ft" id="r_otus_5Fhw8_3A_3AFileInfoSet_5Ft"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classotus__hw8_1_1FileInfoSet__t.html">otus_hw8::FileInfoSet_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Набор файлов одинакового размера  <a href="classotus__hw8_1_1FileInfoSet__t.html#details">Подробнее...</a><br /></td></tr>
+<tr class="memitem:otus_5Fhw8_3A_3AFileFinder" id="r_otus_5Fhw8_3A_3AFileFinder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classotus__hw8_1_1FileFinder.html">otus_hw8::FileFinder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Класс для поиска файлов в указанной директории. Помещает найденные файлы в dest_files_, сразу раделяя их по размеру.  <a href="classotus__hw8_1_1FileFinder.html#details">Подробнее...</a><br /></td></tr>
+<tr class="memitem:otus_5Fhw8_3A_3AFileDupSearcher" id="r_otus_5Fhw8_3A_3AFileDupSearcher"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classotus__hw8_1_1FileDupSearcher.html">otus_hw8::FileDupSearcher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Основной класс для обработки файлов, использует <a class="el" href="classotus__hw8_1_1FileFinder.html" title="Класс для поиска файлов в указанной директории. Помещает найденные файлы в dest_files_,...">FileFinder</a> для заполнения списка файлов по директории  <a href="classotus__hw8_1_1FileDupSearcher.html#details">Подробнее...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Пространства имен</h2></td></tr>
+<tr class="memitem:otus_5Fhw8" id="r_otus_5Fhw8"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html">otus_hw8</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Определения типов</h2></td></tr>
+<tr class="memitem:a80263eb9896b0c991d5143c901e3fb06" id="r_a80263eb9896b0c991d5143c901e3fb06"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#a80263eb9896b0c991d5143c901e3fb06">otus_hw8::string_arr_t</a> = std::vector&lt;std::string&gt;</td></tr>
+<tr class="memitem:a592d24b46c67b5345d6e77dbc93f2521" id="r_a592d24b46c67b5345d6e77dbc93f2521"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#a592d24b46c67b5345d6e77dbc93f2521">otus_hw8::string_set_t</a> = std::set&lt;std::string&gt;</td></tr>
+<tr class="memitem:abcfd02ac563e096f0156cd4efd7f3d80" id="r_abcfd02ac563e096f0156cd4efd7f3d80"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#abcfd02ac563e096f0156cd4efd7f3d80">otus_hw8::regex_arr_t</a> = std::vector&lt;boost::regex&gt;</td></tr>
+<tr class="memitem:a1c812c17995e4d766096fd34033113f8" id="r_a1c812c17995e4d766096fd34033113f8"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#a1c812c17995e4d766096fd34033113f8">otus_hw8::file_sz_t</a> = boost::uintmax_t</td></tr>
+<tr class="memitem:ad6dd7477035fbbb6144ecc8fb8d212e9" id="r_ad6dd7477035fbbb6144ecc8fb8d212e9"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#ad6dd7477035fbbb6144ecc8fb8d212e9">otus_hw8::DupFileSet_t</a> = std::set&lt;<a class="el" href="structotus__hw8_1_1FileInfo.html">FileInfo</a> *&gt;</td></tr>
+<tr class="memitem:a03b10fc97545c727a580920607beb260" id="r_a03b10fc97545c727a580920607beb260"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#a03b10fc97545c727a580920607beb260">otus_hw8::DupFilePtrSet_t</a> = std::set&lt;<a class="el" href="namespaceotus__hw8.html#ad6dd7477035fbbb6144ecc8fb8d212e9">DupFileSet_t</a> *&gt;</td></tr>
+<tr class="memitem:a29fe8081bbc3fd747fd57d5aeb648a49" id="r_a29fe8081bbc3fd747fd57d5aeb648a49"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#a29fe8081bbc3fd747fd57d5aeb648a49">otus_hw8::FilesCollection_t</a> = std::unordered_map&lt;<a class="el" href="namespaceotus__hw8.html#a1c812c17995e4d766096fd34033113f8">file_sz_t</a>, <a class="el" href="classotus__hw8_1_1FileInfoSet__t.html">FileInfoSet_t</a>&gt;</td></tr>
+<tr class="memdesc:a29fe8081bbc3fd747fd57d5aeb648a49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Основная коллекция для хранения информации о файлах. Рассматриваются файлы одинакового размера, которые хранятся в двоичном дереве отсортированными по имени (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах).  <br /></td></tr>
+<tr class="memitem:a8146a7e16f50506c923c99912502daea" id="r_a8146a7e16f50506c923c99912502daea"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#a8146a7e16f50506c923c99912502daea">otus_hw8::FilesCollectionPtr</a> = std::shared_ptr&lt;<a class="el" href="namespaceotus__hw8.html#a29fe8081bbc3fd747fd57d5aeb648a49">FilesCollection_t</a>&gt;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:ab9fdb8e6fec639e3a705fc42422f9da3" id="r_ab9fdb8e6fec639e3a705fc42422f9da3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#ab9fdb8e6fec639e3a705fc42422f9da3">otus_hw8::parse_command_line</a> (int argc, const char *argv[], <a class="el" href="structotus__hw8_1_1Options.html">Options</a> &amp;parsed_options)</td></tr>
+</table>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

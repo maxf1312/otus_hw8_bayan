@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>bayan: 8. Boost</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">bayan<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">bayan utility for duplicate file searching</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div id="doc-content">
+<div><div class="header">
+  <div class="headertitle"><div class="title"><ol type="1">
+<li>Boost </li>
+</ol>
+</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
+<p>Создаем полезную утилиту для быстрого поиска дублирующихся по содержимому файлов, практикуясь в использовании библиотеки Boost. </p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+Условие</h1>
+<p>Пользуясь имеющимися в библиотеке Boost структурами и алгоритмами разработать утилиту для обнаружения файлов-дубликатов. Утилита должна иметь возможность через параметры командной строки указывать</p><ul>
+<li>директории для сканирования (может быть несколько)</li>
+<li>директории для исключения из сканирования (может быть несколько)</li>
+<li>уровень сканирования (один на все директории, 0 - только указанная директория без вложенных)</li>
+<li>минимальный размер файла, по умолчанию проверяются все файлы больше 1 байта.</li>
+<li>маски имен файлов разрешенных для сравнения (не зависят от регистра)</li>
+<li>размер блока, которым производится чтения файлов, в задании этот размер упоминается как S</li>
+<li>один из имеющихся алгоритмов хэширования (crc32, md5 - конкретные варианты определить самостоятельно), в задании эта функция упоминается как H</li>
+</ul>
+<p>Результатом работы утилиты должен быть список полных путей файлов с идентичным содержимым, выводимый на стандартный вывод. На одной строке один файл. Идентичные файлы должны подряд, одной группой. Разные группы разделяются пустой строкой. Обязательно свойство утилиты - бережное обращение с дисковым вводом выводом. Каждый файл может быть представлен в виде списка блоков размера S. Если размер файла не кратен, он дополняется бинарными нулями. Файл world.txt из одной строки Hello, Worl При размере блока в 5 байт, будет представлен как Hello , Wor l \0\0 Каждый блок должен быть свернут выбранной функцией хэширования. Возможные коллизии игнорируются. Из предположения, что H("Hello") == A H(", Wor") == B H("l
+\0\0") == C Наш файл world.txt может быть представлен в виде последовательности ABC Рассмотрим второй файл cpp.txt Hello, C+</p>
+<p>Который после хэширования блоков H("Hello") == A H(", C++") == D H( \0\0\0\0") == E может быть представлен в виде последовательности ADE Порядок сравнения этих файлов должен быть максимально бережным. То есть обработка первого файла world.txt вообще не приводит к чтению с диска, ведь нам еще не с чем сравнивать. Как только мы добираемся до файла cpp.txt только в этот момент происходит перое чтение первого блока обоих файлов. В данном случае блоки идентичны, и необходимо прочесть вторые блоки, которые уже различаются. Файлы различны, оставшиеся данные не читаются. Файлы считаются идентичными при полном совпадении последовательности хешей блоков. </p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+Самоконтроль</h1>
+<ul>
+<li>блок файла читается с диска не более одного раза</li>
+<li>блок файла читается только в случае необходимости</li>
+<li>не забыть, что дубликатов может быть больше чем два</li>
+<li>пакет bayan содержащий исполняемый файл bayan опубликован на bintray</li>
+<li>описание параметров в файле <a class="el" href="README_8md.html">README.md</a> корне репозитория</li>
+<li>отправлена на проверку ссылка на страницу репозитория </li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+Проверка</h1>
+<p>Задание считается выполнено успешно, если после просмотра кода, подключения репозитория, установки пакета и запуска бинарного файла командой (параметры из описания): $ bayan [...] будут обнаружены файлы-дубликаты, без ложных срабатываний и пропуска существующих дубликатов. Количество прочитанных данных с диска минимально. </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

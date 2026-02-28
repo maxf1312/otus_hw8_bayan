@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>bayan: Файл test_bayan.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">bayan<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">bayan utility for duplicate file searching</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Функции</a>  </div>
+  <div class="headertitle"><div class="title">Файл test_bayan.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;list&gt;</code><br />
+<code>#include &lt;tuple&gt;</code><br />
+<code>#include &lt;boost/regex.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="pretty_8h_source.html">pretty.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="bayan__internal_8h_source.html">bayan_internal.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Граф включаемых заголовочных файлов для test_bayan.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="test__bayan_8cpp__incl.png" border="0" usemap="#atest__bayan_8cpp" loading="lazy" alt=""/></div>
+<map name="atest__bayan_8cpp" id="atest__bayan_8cpp">
+<area shape="rect" title=" " alt="" coords="401,5,510,31"/>
+<area shape="rect" title=" " alt="" coords="70,79,164,105"/>
+<area shape="poly" title=" " alt="" coords="401,34,179,80,178,75,400,28"/>
+<area shape="rect" title=" " alt="" coords="5,153,74,178"/>
+<area shape="poly" title=" " alt="" coords="401,33,318,53,227,81,202,94,177,107,83,149,81,144,174,102,199,89,225,77,317,48,400,28"/>
+<area shape="rect" title=" " alt="" coords="492,79,531,105"/>
+<area shape="poly" title=" " alt="" coords="467,30,495,65,491,68,463,33"/>
+<area shape="rect" title=" " alt="" coords="555,79,604,105"/>
+<area shape="poly" title=" " alt="" coords="478,29,547,69,544,73,475,34"/>
+<area shape="rect" title=" " alt="" coords="811,226,924,252"/>
+<area shape="poly" title=" " alt="" coords="458,31,464,67,471,86,483,103,505,120,537,137,621,169,715,198,800,220,798,225,713,203,619,174,534,142,502,124,479,106,467,89,459,68,453,32"/>
+<area shape="rect" href="pretty_8h.html" title=" " alt="" coords="628,79,691,105"/>
+<area shape="poly" title=" " alt="" coords="491,29,614,72,612,77,489,34"/>
+<area shape="rect" href="bayan__internal_8h.html" title=" " alt="" coords="238,79,353,105"/>
+<area shape="poly" title=" " alt="" coords="429,34,338,75,335,70,427,29"/>
+<area shape="poly" title=" " alt="" coords="253,108,89,153,88,148,251,103"/>
+<area shape="rect" title=" " alt="" coords="102,300,174,326"/>
+<area shape="poly" title=" " alt="" coords="284,107,235,157,206,191,179,228,150,286,145,284,175,225,201,188,231,154,280,103"/>
+<area shape="rect" title=" " alt="" coords="352,153,418,178"/>
+<area shape="poly" title=" " alt="" coords="312,103,360,141,356,145,309,107"/>
+<area shape="rect" title=" " alt="" coords="98,153,144,178"/>
+<area shape="poly" title=" " alt="" coords="267,108,160,151,158,146,265,103"/>
+<area shape="rect" href="bayan_8h.html" title=" " alt="" coords="263,153,328,178"/>
+<area shape="poly" title=" " alt="" coords="298,105,298,137,293,137,293,105"/>
+<area shape="poly" title=" " alt="" coords="329,173,341,176,467,195,566,203,666,210,793,224,796,224,796,229,793,229,665,216,566,209,467,200,340,181,328,178"/>
+<area shape="poly" title=" " alt="" coords="274,181,241,202,207,228,179,259,156,289,152,286,175,255,203,224,238,197,271,177"/>
+<area shape="rect" title=" " alt="" coords="764,300,817,326"/>
+<area shape="poly" title=" " alt="" coords="329,173,341,176,400,183,451,185,539,180,581,180,625,185,672,199,725,224,742,237,757,252,780,285,775,288,753,256,739,241,722,229,670,204,624,190,581,185,539,185,451,190,399,189,340,181,328,178"/>
+<area shape="rect" title=" " alt="" coords="313,300,366,326"/>
+<area shape="poly" title=" " alt="" coords="270,181,246,195,225,212,213,231,213,241,216,251,233,269,253,283,299,301,297,306,251,288,229,273,212,253,207,241,208,229,221,208,243,191,267,177"/>
+<area shape="rect" title=" " alt="" coords="672,300,740,326"/>
+<area shape="poly" title=" " alt="" coords="329,173,341,176,422,181,528,184,582,187,631,194,671,206,700,224,709,238,714,254,714,285,709,285,708,255,704,240,696,228,669,211,629,199,581,192,528,189,422,187,340,181,328,178"/>
+<area shape="rect" title=" " alt="" coords="226,226,266,252"/>
+<area shape="poly" title=" " alt="" coords="290,180,265,215,261,212,285,177"/>
+<area shape="rect" title=" " alt="" coords="290,226,400,252"/>
+<area shape="poly" title=" " alt="" coords="306,177,330,212,326,215,301,180"/>
+<area shape="rect" title=" " alt="" coords="424,226,564,252"/>
+<area shape="poly" title=" " alt="" coords="330,176,447,218,445,223,328,181"/>
+<area shape="rect" href="hashalgo_8hpp.html" title=" " alt="" coords="588,226,686,252"/>
+<area shape="poly" title=" " alt="" coords="329,173,341,176,574,223,573,228,340,181,328,178"/>
+<area shape="poly" title=" " alt="" coords="588,253,576,255,361,286,190,308,189,303,360,281,575,249,588,247"/>
+<area shape="poly" title=" " alt="" coords="664,250,752,291,749,296,662,255"/>
+<area shape="poly" title=" " alt="" coords="588,255,382,304,381,299,587,250"/>
+<area shape="poly" title=" " alt="" coords="650,250,686,287,682,291,646,254"/>
+<area shape="rect" title=" " alt="" coords="591,300,648,326"/>
+<area shape="poly" title=" " alt="" coords="637,253,629,286,623,284,631,252"/>
+<area shape="rect" title=" " alt="" coords="489,300,566,326"/>
+<area shape="poly" title=" " alt="" coords="620,255,560,294,557,289,617,250"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627" id="r_a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
+<tr class="memitem:ac1fed3dc82f89d658724f5cf2b19635f" id="r_ac1fed3dc82f89d658724f5cf2b19635f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac1fed3dc82f89d658724f5cf2b19635f">explore_boost_path</a> (bfs::path p)</td></tr>
+<tr class="memitem:a15019d6377b9b51f2162c792b9c7ee42" id="r_a15019d6377b9b51f2162c792b9c7ee42"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a15019d6377b9b51f2162c792b9c7ee42">TEST</a> (test_bayan, test_file_collect)</td></tr>
+<tr class="memitem:a8005e65bd383b7e3ed9f88a0894a6ab7" id="r_a8005e65bd383b7e3ed9f88a0894a6ab7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8005e65bd383b7e3ed9f88a0894a6ab7">TEST</a> (test_bayan, test_file_collect_depth)</td></tr>
+<tr class="memitem:a79f7815fa92292405fcdfbc1801bed2d" id="r_a79f7815fa92292405fcdfbc1801bed2d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a79f7815fa92292405fcdfbc1801bed2d">TEST</a> (test_bayan, test_find_dup)</td></tr>
+<tr class="memitem:a37efc698e5aa284d423363fd14e8cd23" id="r_a37efc698e5aa284d423363fd14e8cd23"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a37efc698e5aa284d423363fd14e8cd23">TEST</a> (test_bayan, test_find_dup_crc16)</td></tr>
+<tr class="memitem:a8fc3f8137cfdc08105f5b5f778bdff9b" id="r_a8fc3f8137cfdc08105f5b5f778bdff9b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8fc3f8137cfdc08105f5b5f778bdff9b">TEST</a> (test_bayan, test_find_dup_md5)</td></tr>
+<tr class="memitem:a393e6fc31bfd6bb08537f9d0b077e368" id="r_a393e6fc31bfd6bb08537f9d0b077e368"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a393e6fc31bfd6bb08537f9d0b077e368">TEST</a> (test_bayan, test_find_dup_sz)</td></tr>
+<tr class="memitem:a62332871dce72feecc7ed9e8fc6cfccd" id="r_a62332871dce72feecc7ed9e8fc6cfccd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a62332871dce72feecc7ed9e8fc6cfccd">TEST</a> (test_bayan, test_find_files_mask)</td></tr>
+<tr class="memitem:a8f00a234ba68eec7e80cbf5a82e27a9e" id="r_a8f00a234ba68eec7e80cbf5a82e27a9e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8f00a234ba68eec7e80cbf5a82e27a9e">TEST</a> (test_bayan, test_find_dup_mask)</td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Функции</h2>
+<a id="ac1fed3dc82f89d658724f5cf2b19635f" name="ac1fed3dc82f89d658724f5cf2b19635f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1fed3dc82f89d658724f5cf2b19635f">&#9670;&#160;</a></span>explore_boost_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void explore_boost_path </td>
+          <td>(</td>
+          <td class="paramtype">bfs::path</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>argc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>argv</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15019d6377b9b51f2162c792b9c7ee42" name="a15019d6377b9b51f2162c792b9c7ee42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15019d6377b9b51f2162c792b9c7ee42">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">test_bayan</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">test_file_collect</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8005e65bd383b7e3ed9f88a0894a6ab7" name="a8005e65bd383b7e3ed9f88a0894a6ab7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8005e65bd383b7e3ed9f88a0894a6ab7">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">test_bayan</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">test_file_collect_depth</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a79f7815fa92292405fcdfbc1801bed2d" name="a79f7815fa92292405fcdfbc1801bed2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79f7815fa92292405fcdfbc1801bed2d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">test_bayan</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">test_find_dup</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a37efc698e5aa284d423363fd14e8cd23" name="a37efc698e5aa284d423363fd14e8cd23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37efc698e5aa284d423363fd14e8cd23">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">test_bayan</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">test_find_dup_crc16</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8f00a234ba68eec7e80cbf5a82e27a9e" name="a8f00a234ba68eec7e80cbf5a82e27a9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f00a234ba68eec7e80cbf5a82e27a9e">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">test_bayan</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">test_find_dup_mask</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8fc3f8137cfdc08105f5b5f778bdff9b" name="a8fc3f8137cfdc08105f5b5f778bdff9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fc3f8137cfdc08105f5b5f778bdff9b">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">test_bayan</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">test_find_dup_md5</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a393e6fc31bfd6bb08537f9d0b077e368" name="a393e6fc31bfd6bb08537f9d0b077e368"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a393e6fc31bfd6bb08537f9d0b077e368">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">test_bayan</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">test_find_dup_sz</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62332871dce72feecc7ed9e8fc6cfccd" name="a62332871dce72feecc7ed9e8fc6cfccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62332871dce72feecc7ed9e8fc6cfccd">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">test_bayan</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">test_find_files_mask</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

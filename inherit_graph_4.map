@@ -1,0 +1,13 @@
+<map id="Иерархия классов. Графический вид." name="Иерархия классов. Графический вид.">
+<area shape="rect" id="Node000000" href="$structotus__hw8_1_1IHashFunction.html" title="Интерфейс стратегии вычисления хэш&#45;кода для последовательности байт" alt="" coords="5,144,174,169"/>
+<area shape="rect" id="Node000001" href="$classotus__hw8_1_1HashCRCxxImpl.html" title=" " alt="" coords="222,5,400,46"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="116,131,163,94,220,57,247,44,249,49,223,61,166,98,119,135"/>
+<area shape="rect" id="Node000002" href="$classotus__hw8_1_1HashCRCxxImpl.html" title=" " alt="" coords="222,71,400,111"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="150,136,239,109,240,115,151,141"/>
+<area shape="rect" id="Node000003" href="$classotus__hw8_1_1HashCRCxxImpl.html" title="Шаблон реализации семейства алгоритмов CRC." alt="" coords="222,136,400,177"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="189,154,221,154,221,159,189,159"/>
+<area shape="rect" id="Node000004" href="$classotus__hw8_1_1HashDumbImpl.html" title="Реализация простого алгоритма" alt="" coords="224,201,398,226"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="157,171,259,198,257,203,156,176"/>
+<area shape="rect" id="Node000005" href="$classotus__hw8_1_1HashMD5Impl.html" title="Реализация алгоритма md5." alt="" coords="228,250,394,276"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="122,176,168,207,223,237,252,247,250,252,221,241,165,212,119,181"/>
+</map>

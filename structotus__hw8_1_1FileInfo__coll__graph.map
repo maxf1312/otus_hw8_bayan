@@ -1,0 +1,5 @@
+<map id="otus_hw8::FileInfo" name="otus_hw8::FileInfo">
+<area shape="rect" id="Node000001" title="Основная структура информации о файле. Содержит список хэш&#45;блоков для сранвнения, путь и размер файла..." alt="" coords="21,102,147,128"/>
+<area shape="rect" id="Node000002" href="$classotus__hw8_1_1FileInfoSet__t.html" title="Набор файлов одинакового размера" alt="" coords="5,5,163,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,46,87,101,81,101,81,46"/>
+</map>

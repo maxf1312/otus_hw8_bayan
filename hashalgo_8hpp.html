@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>bayan: Файл hashalgo.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">bayan<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">bayan utility for duplicate file searching</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">Пространства имен</a> &#124;
+<a href="#typedef-members">Определения типов</a> &#124;
+<a href="#enum-members">Перечисления</a> &#124;
+<a href="#func-members">Функции</a>  </div>
+  <div class="headertitle"><div class="title">Файл hashalgo.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;ctime&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Граф включаемых заголовочных файлов для hashalgo.hpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="hashalgo_8hpp__incl.png" border="0" usemap="#ahashalgo_8hpp" loading="lazy" alt=""/></div>
+<map name="ahashalgo_8hpp" id="ahashalgo_8hpp">
+<area shape="rect" title=" " alt="" coords="198,5,295,31"/>
+<area shape="rect" title=" " alt="" coords="5,79,59,105"/>
+<area shape="poly" title=" " alt="" coords="211,34,74,79,72,74,209,29"/>
+<area shape="rect" title=" " alt="" coords="83,79,154,105"/>
+<area shape="poly" title=" " alt="" coords="226,34,155,73,152,69,224,29"/>
+<area shape="rect" title=" " alt="" coords="179,79,232,105"/>
+<area shape="poly" title=" " alt="" coords="242,33,222,67,218,64,238,30"/>
+<area shape="rect" title=" " alt="" coords="256,79,323,105"/>
+<area shape="poly" title=" " alt="" coords="256,30,277,64,272,67,251,33"/>
+<area shape="rect" title=" " alt="" coords="347,79,405,105"/>
+<area shape="poly" title=" " alt="" coords="270,29,342,69,339,73,267,34"/>
+<area shape="rect" title=" " alt="" coords="429,79,507,105"/>
+<area shape="poly" title=" " alt="" coords="285,29,417,71,415,76,283,34"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Граф файлов, в которые включается этот файл:</div>
+<div class="dyncontent">
+<div class="center"><img src="hashalgo_8hpp__dep__incl.png" border="0" usemap="#ahashalgo_8hppdep" loading="lazy" alt=""/></div>
+<map name="ahashalgo_8hppdep" id="ahashalgo_8hppdep">
+<area shape="rect" title=" " alt="" coords="243,5,340,31"/>
+<area shape="rect" href="bayan_8h.html" title=" " alt="" coords="207,79,272,105"/>
+<area shape="poly" title=" " alt="" coords="276,45,251,80,246,77,272,42"/>
+<area shape="rect" href="hashalgo_8cpp.html" title=" " alt="" coords="296,79,394,105"/>
+<area shape="poly" title=" " alt="" coords="312,42,338,77,334,80,307,45"/>
+<area shape="rect" href="bayan__internal_8h.html" title=" " alt="" coords="46,153,161,178"/>
+<area shape="poly" title=" " alt="" coords="204,115,128,154,126,150,202,110"/>
+<area shape="rect" href="bayan__utils_8cpp.html" title=" " alt="" coords="184,153,295,178"/>
+<area shape="poly" title=" " alt="" coords="242,120,242,152,237,152,237,120"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="319,153,392,178"/>
+<area shape="poly" title=" " alt="" coords="273,111,337,150,335,154,271,115"/>
+<area shape="rect" href="bayan_8cpp.html" title=" " alt="" coords="5,226,85,252"/>
+<area shape="poly" title=" " alt="" coords="86,192,57,228,53,224,82,189"/>
+<area shape="rect" href="test__bayan_8cpp.html" title=" " alt="" coords="108,226,216,252"/>
+<area shape="poly" title=" " alt="" coords="125,189,154,224,150,228,121,192"/>
+</map>
+</div>
+</div>
+<p><a href="hashalgo_8hpp_source.html">См. исходные тексты.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Пространства имен</h2></td></tr>
+<tr class="memitem:otus_5Fhw8" id="r_otus_5Fhw8"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html">otus_hw8</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Определения типов</h2></td></tr>
+<tr class="memitem:a2afa66336fd23183fcf0e33eb39b4436" id="r_a2afa66336fd23183fcf0e33eb39b4436"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#a2afa66336fd23183fcf0e33eb39b4436">otus_hw8::HashCode</a> = std::vector&lt;uint8_t&gt;</td></tr>
+<tr class="memdesc:a2afa66336fd23183fcf0e33eb39b4436"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип хэш-кода - просто массив байт  <br /></td></tr>
+<tr class="memitem:abca6405fb7d6a0d583d6c61ea14c89f6" id="r_abca6405fb7d6a0d583d6c61ea14c89f6"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#abca6405fb7d6a0d583d6c61ea14c89f6">otus_hw8::HashFunction</a> = std::function&lt;<a class="el" href="namespaceotus__hw8.html#a2afa66336fd23183fcf0e33eb39b4436">HashCode</a>(const uint8_t *data, size_t data_size)&gt;</td></tr>
+<tr class="memdesc:abca6405fb7d6a0d583d6c61ea14c89f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип стратегии хэширования  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Перечисления</h2></td></tr>
+<tr class="memitem:ae6acf2ca5d02164855838261ad3c7fd5" id="r_ae6acf2ca5d02164855838261ad3c7fd5"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5">otus_hw8::HashFunctionType</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5a04646852091db582a550e6b08d63bf4d">otus_hw8::HashUnknown</a> = 0
+, <a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5a917eae0244fbf12ff0738bc88cde3ec5">otus_hw8::HashDumb</a>
+, <a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5ac1bc6baec26b433bc43cb087e845d388">otus_hw8::HashMD5</a>
+, <a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5a944505665d74e48d6de112b04e1615c5">otus_hw8::HashCRC16</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5a284de2d8f6bba3bb3002685bad3bd998">otus_hw8::HashCRC32</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ae6acf2ca5d02164855838261ad3c7fd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип воможных хэш кодов и стратегий для их вычисления  <a href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5">Подробнее...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:ab15745c108a476f1d7086a9c1310497b" id="r_ab15745c108a476f1d7086a9c1310497b"><td class="memItemLeft"><a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#ab15745c108a476f1d7086a9c1310497b">otus_hw8::hash_function_type</a> (const std::string &amp;t)</td></tr>
+<tr class="memdesc:ab15745c108a476f1d7086a9c1310497b"><td class="mdescLeft">&#160;</td><td class="mdescRight">получить тип хэш-функции по названию  <br /></td></tr>
+<tr class="memitem:ab93bc509dfe34e6883efa9b596a25575" id="r_ab93bc509dfe34e6883efa9b596a25575"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#ab93bc509dfe34e6883efa9b596a25575">otus_hw8::get_hash_bytes_len</a> (<a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a> t)</td></tr>
+<tr class="memdesc:ab93bc509dfe34e6883efa9b596a25575"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить длину хэш-кода по его коду. Необходимо для отделения одного хэш-кода от другого в общем массиве байт  <br /></td></tr>
+<tr class="memitem:ac8035e639dcfac10e4020783436a7bf0" id="r_ac8035e639dcfac10e4020783436a7bf0"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#ac8035e639dcfac10e4020783436a7bf0">otus_hw8::get_hash_bytes_len</a> (const std::string &amp;t)</td></tr>
+<tr class="memdesc:ac8035e639dcfac10e4020783436a7bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить длину хэш-кода по его текстовому имени типа. Необходимо для отделения одного хэш-кода от другого в общем массиве байт  <br /></td></tr>
+<tr class="memitem:ab86555cd01b2c77b3a456d76365b19ec" id="r_ab86555cd01b2c77b3a456d76365b19ec"><td class="memItemLeft"><a class="el" href="namespaceotus__hw8.html#abca6405fb7d6a0d583d6c61ea14c89f6">HashFunction</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#ab86555cd01b2c77b3a456d76365b19ec">otus_hw8::create_hash_function</a> (<a class="el" href="namespaceotus__hw8.html#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a> t)</td></tr>
+<tr class="memdesc:ab86555cd01b2c77b3a456d76365b19ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">создать хэш-функцию по коду типа  <br /></td></tr>
+<tr class="memitem:ac6974d482e671b30d2831264c1753c3f" id="r_ac6974d482e671b30d2831264c1753c3f"><td class="memItemLeft"><a class="el" href="namespaceotus__hw8.html#abca6405fb7d6a0d583d6c61ea14c89f6">HashFunction</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html#ac6974d482e671b30d2831264c1753c3f">otus_hw8::create_hash_function</a> (const std::string &amp;t)</td></tr>
+<tr class="memdesc:ac6974d482e671b30d2831264c1753c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">создать хэш-функцию по текстовому имени типа  <br /></td></tr>
+</table>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

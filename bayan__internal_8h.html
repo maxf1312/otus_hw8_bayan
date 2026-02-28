@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>bayan: Файл bayan_internal.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">bayan<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">bayan utility for duplicate file searching</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">Пространства имен</a>  </div>
+  <div class="headertitle"><div class="title">Файл bayan_internal.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &quot;<a class="el" href="bayan_8h_source.html">bayan.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Граф включаемых заголовочных файлов для bayan_internal.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="bayan__internal_8h__incl.png" border="0" usemap="#abayan__internal_8h" loading="lazy" alt=""/></div>
+<map name="abayan__internal_8h" id="abayan__internal_8h">
+<area shape="rect" title=" " alt="" coords="354,5,469,31"/>
+<area shape="rect" title=" " alt="" coords="5,226,77,252"/>
+<area shape="poly" title=" " alt="" coords="354,30,289,43,214,67,138,103,103,127,72,154,55,182,47,211,42,210,51,180,68,151,100,123,135,99,212,62,288,38,353,24"/>
+<area shape="rect" title=" " alt="" coords="379,79,444,105"/>
+<area shape="poly" title=" " alt="" coords="414,31,414,63,409,63,409,31"/>
+<area shape="rect" title=" " alt="" coords="468,79,536,105"/>
+<area shape="poly" title=" " alt="" coords="429,29,477,67,474,72,425,34"/>
+<area shape="rect" title=" " alt="" coords="560,79,607,105"/>
+<area shape="poly" title=" " alt="" coords="442,29,547,72,545,77,440,34"/>
+<area shape="rect" href="bayan_8h.html" title=" " alt="" coords="290,79,355,105"/>
+<area shape="poly" title=" " alt="" coords="398,34,351,71,348,67,395,29"/>
+<area shape="poly" title=" " alt="" coords="290,98,249,103,201,113,151,130,104,155,75,183,55,214,51,211,71,180,101,151,148,125,200,108,248,98,289,93"/>
+<area shape="rect" title=" " alt="" coords="318,226,372,252"/>
+<area shape="poly" title=" " alt="" coords="290,98,227,104,160,118,134,129,117,142,111,157,119,177,130,187,148,196,197,211,303,230,302,236,195,216,146,201,128,191,115,180,105,158,112,139,131,124,159,113,226,99,289,92"/>
+<area shape="rect" title=" " alt="" coords="570,226,624,252"/>
+<area shape="poly" title=" " alt="" coords="356,99,367,102,406,108,441,108,505,103,534,103,562,110,589,125,616,151,624,166,624,182,615,213,610,212,619,182,618,167,612,154,586,129,560,115,533,109,505,108,441,113,405,113,366,107,355,105"/>
+<area shape="rect" title=" " alt="" coords="831,226,899,252"/>
+<area shape="poly" title=" " alt="" coords="356,100,367,102,431,110,487,112,583,107,630,106,678,111,730,125,789,150,808,163,826,179,852,212,848,215,822,183,805,167,786,155,728,130,677,116,629,111,584,112,487,117,431,116,366,107,355,105"/>
+<area shape="rect" title=" " alt="" coords="129,153,169,178"/>
+<area shape="poly" title=" " alt="" coords="294,108,184,153,182,148,292,103"/>
+<area shape="rect" title=" " alt="" coords="192,153,303,178"/>
+<area shape="poly" title=" " alt="" coords="312,107,273,144,269,140,308,103"/>
+<area shape="rect" title=" " alt="" coords="327,153,467,178"/>
+<area shape="poly" title=" " alt="" coords="337,103,376,140,372,144,333,107"/>
+<area shape="rect" title=" " alt="" coords="490,153,602,178"/>
+<area shape="poly" title=" " alt="" coords="356,101,495,145,493,150,355,106"/>
+<area shape="rect" href="hashalgo_8hpp.html" title=" " alt="" coords="678,153,775,178"/>
+<area shape="poly" title=" " alt="" coords="356,100,367,102,512,128,659,150,663,151,662,156,658,155,511,133,366,107,355,105"/>
+<area shape="poly" title=" " alt="" coords="677,175,92,235,92,230,677,169"/>
+<area shape="poly" title=" " alt="" coords="678,179,388,233,387,227,677,173"/>
+<area shape="poly" title=" " alt="" coords="706,181,634,221,631,216,703,177"/>
+<area shape="poly" title=" " alt="" coords="751,177,829,216,827,221,749,181"/>
+<area shape="rect" title=" " alt="" coords="648,226,706,252"/>
+<area shape="poly" title=" " alt="" coords="720,180,696,215,692,212,716,177"/>
+<area shape="rect" title=" " alt="" coords="730,226,808,252"/>
+<area shape="poly" title=" " alt="" coords="736,177,756,211,752,214,731,180"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Граф файлов, в которые включается этот файл:</div>
+<div class="dyncontent">
+<div class="center"><img src="bayan__internal_8h__dep__incl.png" border="0" usemap="#abayan__internal_8hdep" loading="lazy" alt=""/></div>
+<map name="abayan__internal_8hdep" id="abayan__internal_8hdep">
+<area shape="rect" title=" " alt="" coords="46,5,161,31"/>
+<area shape="rect" href="bayan_8cpp.html" title=" " alt="" coords="5,79,85,105"/>
+<area shape="poly" title=" " alt="" coords="86,45,57,80,53,77,82,41"/>
+<area shape="rect" href="test__bayan_8cpp.html" title=" " alt="" coords="108,79,216,105"/>
+<area shape="poly" title=" " alt="" coords="125,41,154,77,150,80,121,45"/>
+</map>
+</div>
+</div>
+<p><a href="bayan__internal_8h_source.html">См. исходные тексты.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Пространства имен</h2></td></tr>
+<tr class="memitem:otus_5Fhw8" id="r_otus_5Fhw8"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceotus__hw8.html">otus_hw8</a></td></tr>
+</table>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

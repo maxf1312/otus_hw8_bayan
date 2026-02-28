@@ -1,0 +1,590 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>bayan: Пространство имен otus_hw8</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">bayan<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">bayan utility for duplicate file searching</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Классы</a> &#124;
+<a href="#typedef-members">Определения типов</a> &#124;
+<a href="#enum-members">Перечисления</a> &#124;
+<a href="#func-members">Функции</a>  </div>
+  <div class="headertitle"><div class="title">Пространство имен otus_hw8</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Классы</h2></td></tr>
+<tr class="memitem:Options" id="r_Options"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structotus__hw8_1_1Options.html">Options</a></td></tr>
+<tr class="memitem:FileInfo" id="r_FileInfo"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structotus__hw8_1_1FileInfo.html">FileInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Основная структура информации о файле. Содержит список хэш-блоков для сранвнения, путь и размер файла.  <a href="structotus__hw8_1_1FileInfo.html#details">Подробнее...</a><br /></td></tr>
+<tr class="memitem:FileInfoSet_5Ft" id="r_FileInfoSet_5Ft"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classotus__hw8_1_1FileInfoSet__t.html">FileInfoSet_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Набор файлов одинакового размера  <a href="classotus__hw8_1_1FileInfoSet__t.html#details">Подробнее...</a><br /></td></tr>
+<tr class="memitem:FileFinder" id="r_FileFinder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classotus__hw8_1_1FileFinder.html">FileFinder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Класс для поиска файлов в указанной директории. Помещает найденные файлы в dest_files_, сразу раделяя их по размеру.  <a href="classotus__hw8_1_1FileFinder.html#details">Подробнее...</a><br /></td></tr>
+<tr class="memitem:FileDupSearcher" id="r_FileDupSearcher"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classotus__hw8_1_1FileDupSearcher.html">FileDupSearcher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Основной класс для обработки файлов, использует <a class="el" href="classotus__hw8_1_1FileFinder.html" title="Класс для поиска файлов в указанной директории. Помещает найденные файлы в dest_files_,...">FileFinder</a> для заполнения списка файлов по директории  <a href="classotus__hw8_1_1FileDupSearcher.html#details">Подробнее...</a><br /></td></tr>
+<tr class="memitem:IHashFunction" id="r_IHashFunction"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structotus__hw8_1_1IHashFunction.html">IHashFunction</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Интерфейс стратегии вычисления хэш-кода для последовательности байт  <a href="structotus__hw8_1_1IHashFunction.html#details">Подробнее...</a><br /></td></tr>
+<tr class="memitem:HashDumbImpl" id="r_HashDumbImpl"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classotus__hw8_1_1HashDumbImpl.html">HashDumbImpl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Реализация простого алгоритма  <a href="classotus__hw8_1_1HashDumbImpl.html#details">Подробнее...</a><br /></td></tr>
+<tr class="memitem:HashMD5Impl" id="r_HashMD5Impl"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classotus__hw8_1_1HashMD5Impl.html">HashMD5Impl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Реализация алгоритма md5.  <a href="classotus__hw8_1_1HashMD5Impl.html#details">Подробнее...</a><br /></td></tr>
+<tr class="memitem:HashCRCxxImpl" id="r_HashCRCxxImpl"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classotus__hw8_1_1HashCRCxxImpl.html">HashCRCxxImpl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Шаблон реализации семейства алгоритмов CRC.  <a href="classotus__hw8_1_1HashCRCxxImpl.html#details">Подробнее...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Определения типов</h2></td></tr>
+<tr class="memitem:a80263eb9896b0c991d5143c901e3fb06" id="r_a80263eb9896b0c991d5143c901e3fb06"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a80263eb9896b0c991d5143c901e3fb06">string_arr_t</a> = std::vector&lt;std::string&gt;</td></tr>
+<tr class="memitem:a592d24b46c67b5345d6e77dbc93f2521" id="r_a592d24b46c67b5345d6e77dbc93f2521"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a592d24b46c67b5345d6e77dbc93f2521">string_set_t</a> = std::set&lt;std::string&gt;</td></tr>
+<tr class="memitem:abcfd02ac563e096f0156cd4efd7f3d80" id="r_abcfd02ac563e096f0156cd4efd7f3d80"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#abcfd02ac563e096f0156cd4efd7f3d80">regex_arr_t</a> = std::vector&lt;boost::regex&gt;</td></tr>
+<tr class="memitem:a1c812c17995e4d766096fd34033113f8" id="r_a1c812c17995e4d766096fd34033113f8"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a1c812c17995e4d766096fd34033113f8">file_sz_t</a> = boost::uintmax_t</td></tr>
+<tr class="memitem:ad6dd7477035fbbb6144ecc8fb8d212e9" id="r_ad6dd7477035fbbb6144ecc8fb8d212e9"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ad6dd7477035fbbb6144ecc8fb8d212e9">DupFileSet_t</a> = std::set&lt;<a class="el" href="structotus__hw8_1_1FileInfo.html">FileInfo</a> *&gt;</td></tr>
+<tr class="memitem:a03b10fc97545c727a580920607beb260" id="r_a03b10fc97545c727a580920607beb260"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a03b10fc97545c727a580920607beb260">DupFilePtrSet_t</a> = std::set&lt;<a class="el" href="#ad6dd7477035fbbb6144ecc8fb8d212e9">DupFileSet_t</a> *&gt;</td></tr>
+<tr class="memitem:a29fe8081bbc3fd747fd57d5aeb648a49" id="r_a29fe8081bbc3fd747fd57d5aeb648a49"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a29fe8081bbc3fd747fd57d5aeb648a49">FilesCollection_t</a> = std::unordered_map&lt;<a class="el" href="#a1c812c17995e4d766096fd34033113f8">file_sz_t</a>, <a class="el" href="classotus__hw8_1_1FileInfoSet__t.html">FileInfoSet_t</a>&gt;</td></tr>
+<tr class="memdesc:a29fe8081bbc3fd747fd57d5aeb648a49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Основная коллекция для хранения информации о файлах. Рассматриваются файлы одинакового размера, которые хранятся в двоичном дереве отсортированными по имени (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах).  <br /></td></tr>
+<tr class="memitem:a8146a7e16f50506c923c99912502daea" id="r_a8146a7e16f50506c923c99912502daea"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a8146a7e16f50506c923c99912502daea">FilesCollectionPtr</a> = std::shared_ptr&lt;<a class="el" href="#a29fe8081bbc3fd747fd57d5aeb648a49">FilesCollection_t</a>&gt;</td></tr>
+<tr class="memitem:a9b18cbcd9ec998f1557966ee63e6b066" id="r_a9b18cbcd9ec998f1557966ee63e6b066"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a9b18cbcd9ec998f1557966ee63e6b066">IHashFunctionPtr</a> = std::shared_ptr&lt;<a class="el" href="structotus__hw8_1_1IHashFunction.html">IHashFunction</a>&gt;</td></tr>
+<tr class="memdesc:a9b18cbcd9ec998f1557966ee63e6b066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Разделяемый указатель на стратегию  <br /></td></tr>
+<tr class="memitem:a62aa859017d19cb359bbd9dca1845211" id="r_a62aa859017d19cb359bbd9dca1845211"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a62aa859017d19cb359bbd9dca1845211">HashCRC32Impl</a> = <a class="el" href="classotus__hw8_1_1HashCRCxxImpl.html">HashCRCxxImpl</a>&lt;boost::crc_32_type&gt;</td></tr>
+<tr class="memdesc:a62aa859017d19cb359bbd9dca1845211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Реализация алгоритма crc32.  <br /></td></tr>
+<tr class="memitem:a48a37c0df9024e16a87418f8fcc0f025" id="r_a48a37c0df9024e16a87418f8fcc0f025"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a48a37c0df9024e16a87418f8fcc0f025">HashCRC16Impl</a> = <a class="el" href="classotus__hw8_1_1HashCRCxxImpl.html">HashCRCxxImpl</a>&lt;boost::crc_16_type&gt;</td></tr>
+<tr class="memdesc:a48a37c0df9024e16a87418f8fcc0f025"><td class="mdescLeft">&#160;</td><td class="mdescRight">Реализация алгоритма crc16.  <br /></td></tr>
+<tr class="memitem:a2afa66336fd23183fcf0e33eb39b4436" id="r_a2afa66336fd23183fcf0e33eb39b4436"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a2afa66336fd23183fcf0e33eb39b4436">HashCode</a> = std::vector&lt;uint8_t&gt;</td></tr>
+<tr class="memdesc:a2afa66336fd23183fcf0e33eb39b4436"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип хэш-кода - просто массив байт  <br /></td></tr>
+<tr class="memitem:abca6405fb7d6a0d583d6c61ea14c89f6" id="r_abca6405fb7d6a0d583d6c61ea14c89f6"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#abca6405fb7d6a0d583d6c61ea14c89f6">HashFunction</a> = std::function&lt;<a class="el" href="#a2afa66336fd23183fcf0e33eb39b4436">HashCode</a>(const uint8_t *data, size_t data_size)&gt;</td></tr>
+<tr class="memdesc:abca6405fb7d6a0d583d6c61ea14c89f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип стратегии хэширования  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Перечисления</h2></td></tr>
+<tr class="memitem:ae6acf2ca5d02164855838261ad3c7fd5" id="r_ae6acf2ca5d02164855838261ad3c7fd5"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5a04646852091db582a550e6b08d63bf4d">HashUnknown</a> = 0
+, <a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5a917eae0244fbf12ff0738bc88cde3ec5">HashDumb</a>
+, <a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5ac1bc6baec26b433bc43cb087e845d388">HashMD5</a>
+, <a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5a944505665d74e48d6de112b04e1615c5">HashCRC16</a>
+, <br />
+&#160;&#160;<a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5a284de2d8f6bba3bb3002685bad3bd998">HashCRC32</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ae6acf2ca5d02164855838261ad3c7fd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип воможных хэш кодов и стратегий для их вычисления  <a href="#ae6acf2ca5d02164855838261ad3c7fd5">Подробнее...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:ab9fdb8e6fec639e3a705fc42422f9da3" id="r_ab9fdb8e6fec639e3a705fc42422f9da3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab9fdb8e6fec639e3a705fc42422f9da3">parse_command_line</a> (int argc, const char *argv[], <a class="el" href="structotus__hw8_1_1Options.html">Options</a> &amp;parsed_options)</td></tr>
+<tr class="memitem:ace451599b9c2e50c52e4a6349667d2c1" id="r_ace451599b9c2e50c52e4a6349667d2c1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ace451599b9c2e50c52e4a6349667d2c1">show_help</a> (po::options_description const &amp;desc)</td></tr>
+<tr class="memitem:a922b0ae25ba54cad253dbc73e44d9996" id="r_a922b0ae25ba54cad253dbc73e44d9996"><td class="memItemLeft"><a class="el" href="#a9b18cbcd9ec998f1557966ee63e6b066">IHashFunctionPtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a922b0ae25ba54cad253dbc73e44d9996">create_hash_function_impl</a> (const <a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a> t)</td></tr>
+<tr class="memdesc:a922b0ae25ba54cad253dbc73e44d9996"><td class="mdescLeft">&#160;</td><td class="mdescRight">создать реализацию алгоритма по типу хэш-кода  <br /></td></tr>
+<tr class="memitem:ab86555cd01b2c77b3a456d76365b19ec" id="r_ab86555cd01b2c77b3a456d76365b19ec"><td class="memItemLeft"><a class="el" href="#abca6405fb7d6a0d583d6c61ea14c89f6">HashFunction</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab86555cd01b2c77b3a456d76365b19ec">create_hash_function</a> (<a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a> t)</td></tr>
+<tr class="memdesc:ab86555cd01b2c77b3a456d76365b19ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">создать хэш-функцию по коду типа  <br /></td></tr>
+<tr class="memitem:ab15745c108a476f1d7086a9c1310497b" id="r_ab15745c108a476f1d7086a9c1310497b"><td class="memItemLeft"><a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab15745c108a476f1d7086a9c1310497b">hash_function_type</a> (const std::string &amp;t)</td></tr>
+<tr class="memdesc:ab15745c108a476f1d7086a9c1310497b"><td class="mdescLeft">&#160;</td><td class="mdescRight">получить тип хэш-функции по названию  <br /></td></tr>
+<tr class="memitem:ac6974d482e671b30d2831264c1753c3f" id="r_ac6974d482e671b30d2831264c1753c3f"><td class="memItemLeft"><a class="el" href="#abca6405fb7d6a0d583d6c61ea14c89f6">HashFunction</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac6974d482e671b30d2831264c1753c3f">create_hash_function</a> (const std::string &amp;t)</td></tr>
+<tr class="memdesc:ac6974d482e671b30d2831264c1753c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">создать хэш-функцию по текстовому имени типа  <br /></td></tr>
+<tr class="memitem:ab93bc509dfe34e6883efa9b596a25575" id="r_ab93bc509dfe34e6883efa9b596a25575"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#ab93bc509dfe34e6883efa9b596a25575">get_hash_bytes_len</a> (<a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a> t)</td></tr>
+<tr class="memdesc:ab93bc509dfe34e6883efa9b596a25575"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить длину хэш-кода по его коду. Необходимо для отделения одного хэш-кода от другого в общем массиве байт  <br /></td></tr>
+<tr class="memitem:ac8035e639dcfac10e4020783436a7bf0" id="r_ac8035e639dcfac10e4020783436a7bf0"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#ac8035e639dcfac10e4020783436a7bf0">get_hash_bytes_len</a> (const std::string &amp;t)</td></tr>
+<tr class="memdesc:ac8035e639dcfac10e4020783436a7bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить длину хэш-кода по его текстовому имени типа. Необходимо для отделения одного хэш-кода от другого в общем массиве байт  <br /></td></tr>
+</table>
+<a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Типы</h2>
+<a id="a03b10fc97545c727a580920607beb260" name="a03b10fc97545c727a580920607beb260"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03b10fc97545c727a580920607beb260">&#9670;&#160;</a></span>DupFilePtrSet_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a03b10fc97545c727a580920607beb260">otus_hw8::DupFilePtrSet_t</a> = std::set&lt;<a class="el" href="#ad6dd7477035fbbb6144ecc8fb8d212e9">DupFileSet_t</a> *&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6dd7477035fbbb6144ecc8fb8d212e9" name="ad6dd7477035fbbb6144ecc8fb8d212e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6dd7477035fbbb6144ecc8fb8d212e9">&#9670;&#160;</a></span>DupFileSet_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#ad6dd7477035fbbb6144ecc8fb8d212e9">otus_hw8::DupFileSet_t</a> = std::set&lt;<a class="el" href="structotus__hw8_1_1FileInfo.html">FileInfo</a> *&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1c812c17995e4d766096fd34033113f8" name="a1c812c17995e4d766096fd34033113f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c812c17995e4d766096fd34033113f8">&#9670;&#160;</a></span>file_sz_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a1c812c17995e4d766096fd34033113f8">otus_hw8::file_sz_t</a> = boost::uintmax_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29fe8081bbc3fd747fd57d5aeb648a49" name="a29fe8081bbc3fd747fd57d5aeb648a49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29fe8081bbc3fd747fd57d5aeb648a49">&#9670;&#160;</a></span>FilesCollection_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a29fe8081bbc3fd747fd57d5aeb648a49">otus_hw8::FilesCollection_t</a> = std::unordered_map&lt;<a class="el" href="#a1c812c17995e4d766096fd34033113f8">file_sz_t</a>, <a class="el" href="classotus__hw8_1_1FileInfoSet__t.html">FileInfoSet_t</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Основная коллекция для хранения информации о файлах. Рассматриваются файлы одинакового размера, которые хранятся в двоичном дереве отсортированными по имени (чтобы можно было сравнивать и читать с диска файлы, расположенные рядом в каталогах). </p>
+
+</div>
+</div>
+<a id="a8146a7e16f50506c923c99912502daea" name="a8146a7e16f50506c923c99912502daea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8146a7e16f50506c923c99912502daea">&#9670;&#160;</a></span>FilesCollectionPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a8146a7e16f50506c923c99912502daea">otus_hw8::FilesCollectionPtr</a> = std::shared_ptr&lt;<a class="el" href="#a29fe8081bbc3fd747fd57d5aeb648a49">FilesCollection_t</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2afa66336fd23183fcf0e33eb39b4436" name="a2afa66336fd23183fcf0e33eb39b4436"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2afa66336fd23183fcf0e33eb39b4436">&#9670;&#160;</a></span>HashCode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a2afa66336fd23183fcf0e33eb39b4436">otus_hw8::HashCode</a> = std::vector&lt;uint8_t&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Тип хэш-кода - просто массив байт </p>
+
+</div>
+</div>
+<a id="a48a37c0df9024e16a87418f8fcc0f025" name="a48a37c0df9024e16a87418f8fcc0f025"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48a37c0df9024e16a87418f8fcc0f025">&#9670;&#160;</a></span>HashCRC16Impl</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a48a37c0df9024e16a87418f8fcc0f025">otus_hw8::HashCRC16Impl</a> = <a class="el" href="classotus__hw8_1_1HashCRCxxImpl.html">HashCRCxxImpl</a>&lt;boost::crc_16_type&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Реализация алгоритма crc16. </p>
+
+</div>
+</div>
+<a id="a62aa859017d19cb359bbd9dca1845211" name="a62aa859017d19cb359bbd9dca1845211"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62aa859017d19cb359bbd9dca1845211">&#9670;&#160;</a></span>HashCRC32Impl</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a62aa859017d19cb359bbd9dca1845211">otus_hw8::HashCRC32Impl</a> = <a class="el" href="classotus__hw8_1_1HashCRCxxImpl.html">HashCRCxxImpl</a>&lt;boost::crc_32_type&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Реализация алгоритма crc32. </p>
+
+</div>
+</div>
+<a id="abca6405fb7d6a0d583d6c61ea14c89f6" name="abca6405fb7d6a0d583d6c61ea14c89f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abca6405fb7d6a0d583d6c61ea14c89f6">&#9670;&#160;</a></span>HashFunction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#abca6405fb7d6a0d583d6c61ea14c89f6">otus_hw8::HashFunction</a> = std::function&lt;<a class="el" href="#a2afa66336fd23183fcf0e33eb39b4436">HashCode</a>(const uint8_t *data, size_t data_size)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Тип стратегии хэширования </p>
+
+</div>
+</div>
+<a id="a9b18cbcd9ec998f1557966ee63e6b066" name="a9b18cbcd9ec998f1557966ee63e6b066"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b18cbcd9ec998f1557966ee63e6b066">&#9670;&#160;</a></span>IHashFunctionPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a9b18cbcd9ec998f1557966ee63e6b066">otus_hw8::IHashFunctionPtr</a> = std::shared_ptr&lt;<a class="el" href="structotus__hw8_1_1IHashFunction.html">IHashFunction</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Разделяемый указатель на стратегию </p>
+
+</div>
+</div>
+<a id="abcfd02ac563e096f0156cd4efd7f3d80" name="abcfd02ac563e096f0156cd4efd7f3d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcfd02ac563e096f0156cd4efd7f3d80">&#9670;&#160;</a></span>regex_arr_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#abcfd02ac563e096f0156cd4efd7f3d80">otus_hw8::regex_arr_t</a> = std::vector&lt;boost::regex&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a80263eb9896b0c991d5143c901e3fb06" name="a80263eb9896b0c991d5143c901e3fb06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80263eb9896b0c991d5143c901e3fb06">&#9670;&#160;</a></span>string_arr_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a80263eb9896b0c991d5143c901e3fb06">otus_hw8::string_arr_t</a> = std::vector&lt;std::string&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a592d24b46c67b5345d6e77dbc93f2521" name="a592d24b46c67b5345d6e77dbc93f2521"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a592d24b46c67b5345d6e77dbc93f2521">&#9670;&#160;</a></span>string_set_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a592d24b46c67b5345d6e77dbc93f2521">otus_hw8::string_set_t</a> = std::set&lt;std::string&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Перечисления</h2>
+<a id="ae6acf2ca5d02164855838261ad3c7fd5" name="ae6acf2ca5d02164855838261ad3c7fd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6acf2ca5d02164855838261ad3c7fd5">&#9670;&#160;</a></span>HashFunctionType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5">otus_hw8::HashFunctionType</a> : uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Тип воможных хэш кодов и стратегий для их вычисления </p>
+<table class="fieldtable">
+<tr><th colspan="2">Элементы перечислений</th></tr><tr><td class="fieldname"><a id="ae6acf2ca5d02164855838261ad3c7fd5a04646852091db582a550e6b08d63bf4d" name="ae6acf2ca5d02164855838261ad3c7fd5a04646852091db582a550e6b08d63bf4d"></a>HashUnknown&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae6acf2ca5d02164855838261ad3c7fd5a917eae0244fbf12ff0738bc88cde3ec5" name="ae6acf2ca5d02164855838261ad3c7fd5a917eae0244fbf12ff0738bc88cde3ec5"></a>HashDumb&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae6acf2ca5d02164855838261ad3c7fd5ac1bc6baec26b433bc43cb087e845d388" name="ae6acf2ca5d02164855838261ad3c7fd5ac1bc6baec26b433bc43cb087e845d388"></a>HashMD5&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae6acf2ca5d02164855838261ad3c7fd5a944505665d74e48d6de112b04e1615c5" name="ae6acf2ca5d02164855838261ad3c7fd5a944505665d74e48d6de112b04e1615c5"></a>HashCRC16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae6acf2ca5d02164855838261ad3c7fd5a284de2d8f6bba3bb3002685bad3bd998" name="ae6acf2ca5d02164855838261ad3c7fd5a284de2d8f6bba3bb3002685bad3bd998"></a>HashCRC32&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Функции</h2>
+<a id="ac6974d482e671b30d2831264c1753c3f" name="ac6974d482e671b30d2831264c1753c3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6974d482e671b30d2831264c1753c3f">&#9670;&#160;</a></span>create_hash_function() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#abca6405fb7d6a0d583d6c61ea14c89f6">HashFunction</a> otus_hw8::create_hash_function </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>t</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>создать хэш-функцию по текстовому имени типа </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>код типа хэш-кода </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>функция хэширования </dd></dl>
+
+</div>
+</div>
+<a id="ab86555cd01b2c77b3a456d76365b19ec" name="ab86555cd01b2c77b3a456d76365b19ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab86555cd01b2c77b3a456d76365b19ec">&#9670;&#160;</a></span>create_hash_function() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#abca6405fb7d6a0d583d6c61ea14c89f6">HashFunction</a> otus_hw8::create_hash_function </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a></td>          <td class="paramname"><span class="paramname"><em>t</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>создать хэш-функцию по коду типа </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>код типа хэш-кода </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>функция хэширования </dd></dl>
+
+</div>
+</div>
+<a id="a922b0ae25ba54cad253dbc73e44d9996" name="a922b0ae25ba54cad253dbc73e44d9996"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a922b0ae25ba54cad253dbc73e44d9996">&#9670;&#160;</a></span>create_hash_function_impl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a9b18cbcd9ec998f1557966ee63e6b066">IHashFunctionPtr</a> otus_hw8::create_hash_function_impl </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a></td>          <td class="paramname"><span class="paramname"><em>t</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>создать реализацию алгоритма по типу хэш-кода </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>тип хэш-кода </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>указатель на реализацию, скрытый за базовым классом </dd></dl>
+
+</div>
+</div>
+<a id="ac8035e639dcfac10e4020783436a7bf0" name="ac8035e639dcfac10e4020783436a7bf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8035e639dcfac10e4020783436a7bf0">&#9670;&#160;</a></span>get_hash_bytes_len() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t otus_hw8::get_hash_bytes_len </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>t</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить длину хэш-кода по его текстовому имени типа. Необходимо для отделения одного хэш-кода от другого в общем массиве байт </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>код типа хэш-кода </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>размер хэш-кода, байты </dd></dl>
+
+</div>
+</div>
+<a id="ab93bc509dfe34e6883efa9b596a25575" name="ab93bc509dfe34e6883efa9b596a25575"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab93bc509dfe34e6883efa9b596a25575">&#9670;&#160;</a></span>get_hash_bytes_len() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t otus_hw8::get_hash_bytes_len </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a></td>          <td class="paramname"><span class="paramname"><em>t</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить длину хэш-кода по его коду. Необходимо для отделения одного хэш-кода от другого в общем массиве байт </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>код типа хэш-кода </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>размер хэш-кода, байты </dd></dl>
+
+</div>
+</div>
+<a id="ab15745c108a476f1d7086a9c1310497b" name="ab15745c108a476f1d7086a9c1310497b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab15745c108a476f1d7086a9c1310497b">&#9670;&#160;</a></span>hash_function_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ae6acf2ca5d02164855838261ad3c7fd5">HashFunctionType</a> otus_hw8::hash_function_type </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>t</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>получить тип хэш-функции по названию </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>- текстовое название (dumb, md5, crc16, crc32) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>- код типа хэш-функции </dd></dl>
+
+</div>
+</div>
+<a id="ab9fdb8e6fec639e3a705fc42422f9da3" name="ab9fdb8e6fec639e3a705fc42422f9da3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9fdb8e6fec639e3a705fc42422f9da3">&#9670;&#160;</a></span>parse_command_line()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool otus_hw8::parse_command_line </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>argc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>argv</em></span>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structotus__hw8_1_1Options.html">Options</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>parsed_options</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace451599b9c2e50c52e4a6349667d2c1" name="ace451599b9c2e50c52e4a6349667d2c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace451599b9c2e50c52e4a6349667d2c1">&#9670;&#160;</a></span>show_help()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void otus_hw8::show_help </td>
+          <td>(</td>
+          <td class="paramtype">po::options_description const &amp;</td>          <td class="paramname"><span class="paramname"><em>desc</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>
