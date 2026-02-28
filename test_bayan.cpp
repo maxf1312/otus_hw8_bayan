@@ -137,7 +137,7 @@ TEST(test_bayan, test_file_collect_depth)
         for (bfs::recursive_directory_iterator cur_file_it(dir_to_scan); cur_file_it != end(cur_file_it) ; ++cur_file_it)
         {
             std::cout << cur_file_it->path() << std::endl;
-            if( cur_file_it->is_regular_file() ){
+            if( is_regular_file(cur_file_it->path()) ){
                 file_sz_t file_sz = bfs::file_size(cur_file_it->path());
                 auto &file_set = files[file_sz];
                 file_set.add_file(cur_file_it->path().string());

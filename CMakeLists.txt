@@ -33,7 +33,7 @@ target_include_directories(libbayan
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
 
-find_package(Boost REQUIRED COMPONENTS program_options filesystem)
+find_package(Boost REQUIRED COMPONENTS program_options filesystem regex)
 if( Boost_FOUND )
     message(status "** Boost Include: ${Boost_INCLUDE_DIR}")
     message(status "** Boost Libraries: ${Boost_LIBRARY_DIRS}")

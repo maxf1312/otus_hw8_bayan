@@ -118,7 +118,7 @@ namespace otus_hw8
         {
             do
             {
-                if (file0->block_count() <= file_nxt->block_count())
+                if (file0->block_count() <= file_nxt->block_count() && file0->block_count() < max_block_count())
                     file0->read_and_hash_blocks(file0->block_count() + 1);
 
                 if (file0->check_duplicate(*file_nxt, dup_fileptr_set))
@@ -130,8 +130,8 @@ namespace otus_hw8
                 if (file0->check_duplicate(*file_nxt, dup_fileptr_set))
                     break;
             } while (file0->is_hashes_eq(*file_nxt) &&
-                     (file0->block_count() < max_block_count() ||
-                      file_nxt->block_count() < max_block_count()));
+		     (file0->block_count() <= max_block_count() &&
+                      file_nxt->block_count() <= max_block_count()));
         }
     }
 
@@ -159,13 +159,13 @@ namespace otus_hw8
     {
         for (bfs::directory_iterator cur_file(dir_path_), end_file; cur_file != end_file; ++cur_file)
         {
-            if (cur_file->is_directory() && depth_ > 0 &&
+            if (is_directory(cur_file->path()) && depth_ > 0 &&
                 (!dirs_to_excl_ || dirs_to_excl_->end() == dirs_to_excl_->find(cur_file->path().string())))
             {
                 FileFinder sub_finder(cur_file->path().string(), depth_ - 1, min_file_sz_, dest_files_, dirs_to_excl_, file_mask_re_);
                 sub_finder.find_files();
             }
-            else if (cur_file->is_regular_file() && is_file_mask_match(cur_file->path().string()))
+            else if (is_regular_file(cur_file->path()) && is_file_mask_match(cur_file->path().string()))
             {
                 file_sz_t file_sz = bfs::file_size(cur_file->path());
                 if (file_sz < min_file_sz_)
@@ -220,7 +220,7 @@ namespace otus_hw8
         re = boost::regex("\\*", boost::regex::basic | boost::regex::icase);
         file_mask = boost::regex_replace(file_mask, re, ".*", boost::match_default | boost::format_sed);
         return file_mask;
-    };
+    }
 
     void FileDupSearcher::find_duplicates()
     {
